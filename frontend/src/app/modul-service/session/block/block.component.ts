@@ -16,19 +16,17 @@ import {Block} from '../session-domain';
 export class BlockComponent implements OnInit{
   @Input() index!: number;
   @Input() block!: Block;
-
-  module : Modul[] = []
-  modulService = inject(ModuleApiService)
+  @Input() module : Modul[] = []
 
   ngOnInit(): void {
-    this.modulService.getAllModulesByUsername().subscribe(
-      {
-        next: data => {
-          this.module = data
-          console.log(this.module)
-        }
-      }
-    )
+
+  }
+
+  setModulOfBlock(event : Event): void {
+    const select = event.target as HTMLSelectElement;
+    const modulId = select.value;
+    this.block.setModulId(modulId)
+    console.log(`[Block ${this.index}] ModulId gesetzt: ${this.block.modulId}`);
   }
 
   setLernzeitOfBlock(event : Event): void {
