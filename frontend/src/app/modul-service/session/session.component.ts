@@ -7,14 +7,15 @@ import {SessionApiService} from './session-api.service';
 import {Modul} from '../module/domain';
 import {ModuleApiService} from '../module/module-api.service';
 import {SessionStateManager} from './session-state-manager.service';
+import {RouterLink, RouterOutlet} from '@angular/router';
 
 
 @Component({
   selector: 'app-session',
-  imports: [BlockComponent, FormsModule, NgForOf, ReactiveFormsModule, NgIf],
+  imports: [BlockComponent, FormsModule, NgForOf, ReactiveFormsModule, NgIf, RouterLink, RouterOutlet],
   templateUrl: './session.component.html',
   standalone: true,
-  styleUrl: './session.component.scss'
+  styleUrls: ['./session.component.scss', '../../general.scss', '../../button.scss']
 })
 export class SessionComponent implements OnInit{
   sessionApiService = inject(SessionApiService)
