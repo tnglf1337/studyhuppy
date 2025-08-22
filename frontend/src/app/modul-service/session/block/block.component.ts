@@ -42,6 +42,6 @@ export class BlockComponent implements OnInit{
     const select = event.target as HTMLSelectElement;
     const minutes = Number(select.value);
     this.block.setPausezeitSeconds(minutes * 60)
-    console.log(`[Block ${this.index}] Pause gesetzt: ${this.block.lernzeitSeconds}`);
+    console.log(`[Block ${this.index}] Pause gesetzt: ${this.block.pausezeitSeconds}`);
   }
 }
