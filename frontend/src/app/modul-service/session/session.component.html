@@ -21,4 +21,7 @@
 </div>
 
 <button (click)="saveSession()">Session speichern</button>
-<button>Session starten</button>
+<button *ngIf="sessionStarted" (click)="startSession()">Session starten</button>
+<button *ngIf="!sessionStarted && !sessionPaused" (click)="pauseSession()">Session pausieren</button>
+<button *ngIf="!sessionStarted && sessionPaused" (click)="resumeSession()">Session fortsetzen</button>
+<button *ngIf="!sessionStarted" (click)="abortThisSession()">Session abbrechen</button>

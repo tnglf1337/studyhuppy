@@ -1,16 +1,17 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {BlockComponent} from './block/block.component';
 import {Block, Session} from './session-domain';
 import {SessionApiService} from './session-api.service';
 import {Modul} from '../module/domain';
 import {ModuleApiService} from '../module/module-api.service';
+import {SessionStateManager} from './session-state-manager.service';
 
 
 @Component({
   selector: 'app-session',
-  imports: [BlockComponent, FormsModule, NgForOf, ReactiveFormsModule],
+  imports: [BlockComponent, FormsModule, NgForOf, ReactiveFormsModule, NgIf],
   templateUrl: './session.component.html',
   standalone: true,
   styleUrl: './session.component.scss'
@@ -21,8 +22,9 @@ export class SessionComponent implements OnInit{
   session: any
   module : Modul[] = []
   modulService = inject(ModuleApiService)
-
-
+  sessionStateManager!: SessionStateManager;
+  sessionStarted = true;
+  sessionPaused = false;
 
   ngOnInit(): void {
     this.modulService.getAllModulesByUsername().subscribe(
@@ -35,6 +37,8 @@ export class SessionComponent implements OnInit{
     )
 
     this.setSessionConfigData()
+
+    this.sessionStateManager = new SessionStateManager(this.session)
   }
 
   getBlocks(): number[] {
@@ -45,7 +49,7 @@ export class SessionComponent implements OnInit{
     let blocks = []
 
     for(let i = 0; i < this.anzahlBloecke; i++) {
-      const block = new Block(300, 300, this.module?.[0]?.fachId);
+      const block = new Block(10, 10, this.module?.[0]?.fachId);
       blocks.push(block)
     }
     this.session = new Session("dummy titel", "eine session", blocks);
@@ -62,5 +66,27 @@ export class SessionComponent implements OnInit{
     } else {
       console.error("Session ist ungültig. Bitte überprüfen Sie die Eingaben.");
     }
+  }
+
+  startSession(): void {
+    this.sessionStateManager.start()
+    this.sessionStarted = false;
+  }
+
+  pauseSession(): void {
+    this.sessionStateManager.pause()
+    this.sessionPaused = true;
+  }
+
+  resumeSession(): void {
+    this.startSession()
+    this.sessionPaused = false;
+  }
+
+  abortThisSession() : void {
+    this.sessionStateManager.pause()
+    this.sessionStarted = true;
+    this.sessionStateManager.clearState();
+    this.ngOnInit()
   }
 }
