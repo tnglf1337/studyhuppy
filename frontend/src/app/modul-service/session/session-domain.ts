@@ -1,7 +1,7 @@
 export interface Session {
   id:             string;
   titel:           string;
-  beschreibung: number;
+  beschreibung: string;
   blocks:   Block[];
 }
 
