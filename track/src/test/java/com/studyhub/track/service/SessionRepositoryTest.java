@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJdbcTest
 @Rollback(false)
 @Sql(scripts = "drop_session_table.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-//@Sql(scripts = "init_session_db_data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "init_session_db_data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @TestPropertySource(properties = {
 		"spring.datasource.url=jdbc:postgresql://localhost:${container.port}/sessiontest",
 		"spring.datasource.username=timo",
@@ -68,5 +68,18 @@ public class SessionRepositoryTest {
 		assertThat(savedSession).isNotNull();
 		assertThat(savedSession.getFachId()).isNotNull();
 		assertThat(savedSession.getBlocks()).hasSize(5);
+	}
+
+	@Test
+	@DisplayName("Alle erstellte Sessions des Benutzers mit dem username 'alex' werden gefunden")
+	void findAllByUsername() {
+		String username = "alex";
+
+		var sessions = repository.findAllByUsername(username);
+
+		assertThat(sessions).isNotNull();
+		assertThat(sessions).hasSize(2);
+		assertThat(sessions.get(0).getUsername()).isEqualTo(username);
+		assertThat(sessions.get(1).getUsername()).isEqualTo(username);
 	}
 }
