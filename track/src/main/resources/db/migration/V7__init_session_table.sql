@@ -11,5 +11,6 @@ create table block(
     modul_id uuid not null,
     lernzeit_seconds int not null,
     pausezeit_seconds int not null,
-    session int references session(id) on delete cascade
+    session int references session(id) on delete cascade,
+    session_key int
 );
