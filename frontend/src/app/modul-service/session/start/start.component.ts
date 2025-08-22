@@ -10,6 +10,7 @@ import {TimeFormatPipe} from '../../module/time-format.pipe';
   selector: 'app-session-start',
   imports: [NgIf, RouterLink, NgForOf, TimeFormatPipe],
   templateUrl: './start.component.html',
+  standalone: true,
   styleUrls: ['./start.component.scss', '../../../general.scss', '../../../button.scss']
 })
 export class SessionStartComponent implements OnInit{
