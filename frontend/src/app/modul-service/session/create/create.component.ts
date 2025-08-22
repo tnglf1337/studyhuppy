@@ -6,6 +6,7 @@ import {SessionApiService} from '../session-api.service';
 import {Modul} from '../../module/domain';
 import {ModuleApiService} from '../../module/module-api.service';
 import {Block, Session} from '../session-domain';
+import {SnackbarService} from '../../../snackbar.service';
 
 @Component({
   selector: 'app-session-create',
@@ -14,6 +15,7 @@ import {Block, Session} from '../session-domain';
   styleUrls: ['./create.component.scss', '../../../general.scss', '../../../button.scss']
 })
 export class SessionCreateComponent implements OnInit{
+  snackbarService = inject(SnackbarService)
   sessionApiService = inject(SessionApiService)
   anzahlBloecke : number = 2;
   session: any
@@ -53,7 +55,16 @@ export class SessionCreateComponent implements OnInit{
 
   saveSession(): void {
     if(this.session.validSession()) {
-      this.sessionApiService.saveSession(this.session).subscribe()
+      this.sessionApiService.saveSession(this.session).subscribe({
+        next: (response) => {
+          this.snackbarService.openInfo("Session erfolgreich gespeichert.");
+          this.setSessionConfigData();
+        },
+        error: (error) => {
+          this.snackbarService.openError("Fehler beim Speichern der Session. Bitte versuchen Sie es erneut.");
+          console.error("Error saving session:", error);
+        }
+      })
     } else {
       console.error("Session ist ungültig. Bitte überprüfen Sie die Eingaben.");
     }
