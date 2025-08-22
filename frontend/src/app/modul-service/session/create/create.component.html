@@ -1,22 +1,33 @@
-<div class="session-container">
-  <form>
-    <label>Anzahl Blöcke:</label>
-    <select [(ngModel)]="anzahlBloecke" name="blocke-select" (change)="setSessionConfigData()">
-      <option [value]="1">1</option>
-      <option [value]="2" selected>2</option>
-      <option [value]="3">3</option>
-      <option [value]="4">4</option>
-      <option [value]="5">5</option>
-    </select>
-  </form>
-  <div class="blocks-container">
-    <Lernblock *ngFor="let block of getBlocks(); let i = index"
-               [index]="i" [block]="getBlock(i)"
-               [module] = "module">
-    </Lernblock>
-  </div>
-  <div class="btn-group-container">
-    <button id="session-save-btn" class="sh-btn" (click)="saveSession()">Session speichern</button>
+<div class="main-container">
+  <div class="form-container flex-column">
+    <form class="sh-form m-accent-font">
+      <div class="mb-4">
+        <label >Session-Titel</label>
+        <input class="form-control" [(ngModel)]="sessionTitel" name="session-titel">
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Beschreibung</label>
+        <textarea class="form-control" [(ngModel)]="sessionBeschreibung" name="session-beschreibung"></textarea>
+      </div>
+      <div class="mb-4">
+        <label>Anzahl Blöcke:</label>
+        <select class="form-select" [(ngModel)]="anzahlBloecke" name="blocke-select" (change)="setSessionConfigData()">
+          <option [value]="1">1</option>
+          <option [value]="2" selected>2</option>
+          <option [value]="3">3</option>
+          <option [value]="4">4</option>
+          <option [value]="5">5</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <Lernblock *ngFor="let block of getBlocks(); let i = index"
+                   [index]="i" [block]="getBlock(i)"
+                   [module] = "module">
+        </Lernblock>
+      </div>
+      <div class="mb-4">
+        <button id="session-save-btn" class="sh-btn" (click)="saveSession()">Session speichern</button>
+      </div>
+    </form>
   </div>
 </div>
-

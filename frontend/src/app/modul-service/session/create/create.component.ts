@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgForOf} from '@angular/common';
 import {BlockComponent} from '../block/block.component';
 import {SessionApiService} from '../session-api.service';
 import {Modul} from '../../module/domain';
@@ -10,14 +10,16 @@ import {SnackbarService} from '../../../snackbar.service';
 
 @Component({
   selector: 'app-session-create',
-  imports: [BlockComponent, FormsModule, NgForOf, ReactiveFormsModule, NgIf],
+  imports: [BlockComponent, FormsModule, NgForOf, ReactiveFormsModule],
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss', '../../../general.scss', '../../../button.scss']
+  styleUrls: ['./create.component.scss', '../../../general.scss', '../../../button.scss', '../../../forms.scss', '../../../color.scss']
 })
 export class SessionCreateComponent implements OnInit{
   snackbarService = inject(SnackbarService)
   sessionApiService = inject(SessionApiService)
   anzahlBloecke : number = 2;
+  sessionTitel : string = "";
+  sessionBeschreibung : string = "";
   session: any
   module : Modul[] = []
   modulService = inject(ModuleApiService)
@@ -45,8 +47,8 @@ export class SessionCreateComponent implements OnInit{
       const block = new Block(10, 10, this.module?.[0]?.fachId);
       blocks.push(block)
     }
-    this.session = new Session("dummy titel", "eine session", blocks);
-    // console.log(this.session)
+    this.session = new Session(this.sessionTitel, this.sessionBeschreibung, blocks);
+    console.log(this.session)
   }
 
   getBlock(index : number) : Block {

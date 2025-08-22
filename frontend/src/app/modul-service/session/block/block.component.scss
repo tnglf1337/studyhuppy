@@ -1,16 +1,21 @@
 .block-container {
-  background-color: grey;
-  border-color: black;
+  background-color: white;
+  border-color: lightgray;
+  border-width: 1px;
   border-style: solid;
-  margin: 10px;
+  border-radius: 0.375rem;
+  margin-bottom: 20px;
   padding: 10px;
-
   display: flex;
 
   flex-direction: column;
   align-content: center;
   justify-content: center;
 
+}
+
+.block-container:hover {
+  border-color: rgb(16, 45, 92) !important;
 }
 
 td {
