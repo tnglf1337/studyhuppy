@@ -36,11 +36,16 @@ export class Session {
     this.blocks = blocks;
   }
 
-  addBlock(block: Block): void {
-    this.blocks.push(block);
-  }
+  validSession(): boolean {
+    let isValid = true;
 
-  getBlockAnzahl(): number {
-    return this.blocks.length;
+    for (const block of this.blocks) {
+      if (!block.modulId || block.lernzeitSeconds <= 0 || block.pausezeitSeconds < 0) {
+        isValid = false;
+        break;
+      }
+    }
+
+    return isValid
   }
 }

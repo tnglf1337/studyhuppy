@@ -57,6 +57,10 @@ export class SessionComponent implements OnInit{
   }
 
   saveSession(): void {
-    this.sessionApiService.saveSession(this.session).subscribe()
+    if(this.session.validSession()) {
+      this.sessionApiService.saveSession(this.session).subscribe()
+    } else {
+      console.error("Session ist ungültig. Bitte überprüfen Sie die Eingaben.");
+    }
   }
 }
