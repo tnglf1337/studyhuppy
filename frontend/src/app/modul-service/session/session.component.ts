@@ -1,28 +1,39 @@
 import {Component, OnInit} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
 import {BlockComponent} from './block/block.component';
+import {Block, Session} from './session-domain';
 
 
 @Component({
   selector: 'app-session',
-  imports: [BlockComponent, FormsModule, NgForOf],
+  imports: [BlockComponent, FormsModule, NgForOf, ReactiveFormsModule],
   templateUrl: './session.component.html',
   standalone: true,
   styleUrl: './session.component.scss'
 })
 export class SessionComponent implements OnInit{
   anzahlBloecke : number = 2;
+  session: any
+
+
 
   ngOnInit(): void {
-    console.log(this.anzahlBloecke)
+    this.setSessionConfigData()
   }
 
   getBlocks(): number[] {
     return Array.from({ length: this.anzahlBloecke }, (_, i) => i);
   }
 
-  print() : void {
-    console.log(this.anzahlBloecke)
+  setSessionConfigData() : void {
+    let blocks = []
+
+    for(let i = 0; i < this.anzahlBloecke; i++) {
+      const block = new Block(0, 0);
+      blocks.push(block)
+    }
+    this.session = new Session("dummy titel", "eine session", blocks);
+    console.log(this.session)
   }
 }

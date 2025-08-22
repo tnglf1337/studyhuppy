@@ -1,12 +1,41 @@
-export interface Session {
-  id:             string;
-  titel:           string;
-  beschreibung: string;
-  blocks:   Block[];
+export class Block {
+  id?: string;
+  lernzeitSeconds: number;
+  pausezeitSeconds: number;
+
+  constructor(lernzeitSeconds: number, pausezeitSeconds: number, id?: string) {
+    this.id = id;
+    this.lernzeitSeconds = lernzeitSeconds;
+    this.pausezeitSeconds = pausezeitSeconds;
+  }
+
+  setLernzeitSeconds(seconds: number): void {
+    this.lernzeitSeconds = seconds;
+  }
+
+  setPausezeitSeconds(seconds: number): void {
+    this.pausezeitSeconds = seconds;
+  }
 }
 
-export interface Block {
-  id:               string;
-  lernzeitSeconds:  number;
-  pausezeitSeconds: number;
+export class Session {
+  id?: string;
+  titel: string;
+  beschreibung: string;
+  blocks: Block[];
+
+  constructor(titel: string, beschreibung: string, blocks: Block[] = [], id?: string) {
+    this.id = id;
+    this.titel = titel;
+    this.beschreibung = beschreibung;
+    this.blocks = blocks;
+  }
+
+  addBlock(block: Block): void {
+    this.blocks.push(block);
+  }
+
+  getBlockAnzahl(): number {
+    return this.blocks.length;
+  }
 }
