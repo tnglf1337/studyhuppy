@@ -18,6 +18,13 @@
   border-color: rgb(16, 45, 92) !important;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;}
+
+.td-label {
+  width: 20%;
+}
 td {
-  width: 130px;
+  padding: 5px;
 }
