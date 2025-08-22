@@ -14,7 +14,8 @@
   </form>
   <div>
     <Lernblock *ngFor="let block of getBlocks(); let i = index"
-               [index]="i" [block]="getBlock(i)">
+               [index]="i" [block]="getBlock(i)"
+               [module] = "module">
     </Lernblock>
   </div>
 </div>
