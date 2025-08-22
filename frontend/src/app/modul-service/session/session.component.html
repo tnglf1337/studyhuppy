@@ -1,27 +1,41 @@
-<p>Vorhandene Session-Konfiguration wählen</p>
+<div class="main-container">
 
-<div class="session-config-container">
-  <p>Lern-Session konfigurieren</p>
-  <form>
-    <label>Anzahl Blöcke:</label>
-    <select [(ngModel)]="anzahlBloecke" name="blocke-select" (change)="setSessionConfigData()">
-      <option [value]="1">1</option>
-      <option [value]="2" selected>2</option>
-      <option [value]="3">3</option>
-      <option [value]="4">4</option>
-      <option [value]="5">5</option>
-    </select>
-  </form>
-  <div>
-    <Lernblock *ngFor="let block of getBlocks(); let i = index"
-               [index]="i" [block]="getBlock(i)"
-               [module] = "module">
-    </Lernblock>
+
+
+  <div class="session-container">
+    <p>Hier können Sie Lern-Sessions starten und erstellen, die aus Zeitblöcken bestehen und Ihre Module umfassen. Die Lernzeiten werden zu ihren erstellten Modulen hinzugefügt</p>
+    <div class="d-flex flex-column align-items-center">
+      <a [routerLink]="'/module/session/start'" class="mb-2">Lern-Session starten</a>
+      <a [routerLink]="'/module/session/create'" class="mb-2">Lern-Session erstellen</a>
+    </div>
   </div>
+ <!--
+  <div class="session-container">
+    <form>
+      <label>Anzahl Blöcke:</label>
+      <select [(ngModel)]="anzahlBloecke" name="blocke-select" (change)="setSessionConfigData()">
+        <option [value]="1">1</option>
+        <option [value]="2" selected>2</option>
+        <option [value]="3">3</option>
+        <option [value]="4">4</option>
+        <option [value]="5">5</option>
+      </select>
+    </form>
+    <div class="blocks-container">
+      <Lernblock *ngFor="let block of getBlocks(); let i = index"
+                 [index]="i" [block]="getBlock(i)"
+                 [module] = "module">
+      </Lernblock>
+    </div>
+    <div class="btn-group-container">
+      <button id="session-save-btn" class="sh-btn" (click)="saveSession()">Session speichern</button>
+      <div class="btn-session-management-container">
+        <button id="session-start-btn" class="sh-btn" *ngIf="sessionStarted" (click)="startSession()">Session starten</button>
+        <button id="session-pause-btn" class="sh-btn" *ngIf="!sessionStarted && !sessionPaused" (click)="pauseSession()">Session pausieren</button>
+        <button id="session-resume-btn" class="sh-btn" *ngIf="!sessionStarted && sessionPaused" (click)="resumeSession()">Session fortsetzen</button>
+        <button id="session-abort-btn" class="sh-btn" *ngIf="!sessionStarted" (click)="abortThisSession()">Session abbrechen</button>
+      </div>
+      </div>
+  </div>
+  -->
 </div>
-
-<button (click)="saveSession()">Session speichern</button>
-<button *ngIf="sessionStarted" (click)="startSession()">Session starten</button>
-<button *ngIf="!sessionStarted && !sessionPaused" (click)="pauseSession()">Session pausieren</button>
-<button *ngIf="!sessionStarted && sessionPaused" (click)="resumeSession()">Session fortsetzen</button>
-<button *ngIf="!sessionStarted" (click)="abortThisSession()">Session abbrechen</button>
