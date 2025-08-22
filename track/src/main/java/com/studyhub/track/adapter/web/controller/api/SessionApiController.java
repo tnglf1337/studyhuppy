@@ -7,7 +7,6 @@ import com.studyhub.track.domain.model.session.Session;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -36,7 +35,6 @@ public class SessionApiController {
 
 	@PostMapping("/create")
 	public ResponseEntity<Void> createSession(@RequestBody SessionRequest sessionRequest, HttpServletRequest request) {
-		System.out.println("ping session create");
 		String username = jwtService.extractUsernameFromHeader(request);
 		boolean success = sessionService.save(sessionRequest.toEntity(username));
 
