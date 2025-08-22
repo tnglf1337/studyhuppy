@@ -14,6 +14,7 @@ public class SessionService {
 
 	public void save(Session session) {
 		// implement db connection and save logic here
+		sessionRepository.save(session);
 	}
 
 }
