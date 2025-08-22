@@ -60,4 +60,16 @@ export class SessionStartComponent implements OnInit{
     this.sessionStateManager.clearState();
     this.ngOnInit()
   }
+
+  getCurrentLernzeit(): number {
+    return this.sessionStateManager.getCurrentLernzeit()
+  }
+
+  getCurrentPause(): number {
+    return this.sessionStateManager.getCurrentPause()
+  }
+
+  getCurrentBlockId(): string {
+    return this.sessionStateManager.getCurrentBlockId()
+  }
 }

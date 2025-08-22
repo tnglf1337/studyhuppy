@@ -5,13 +5,22 @@
   <div class="bordered">
     <p>Session-Konfiguration auswählen</p>
     <select>
-      <!-- TODO aus dem backend holen -->
-      <option>Normal während Vorlesungs-Zeit</option>
-      <option>Intensiv</option>
+      <option *ngFor="let session of sessions"> {{session.titel}}</option>
     </select>
   </div>
   <div class="bordered">
-    <p>Hier kommen die blöcke etc</p>
+    <div class="bordered" *ngFor="let block of selectedSession?.blocks">
+      <div *ngIf="block.fachId == getCurrentBlockId()">
+        <p>Modul: {{block.modulId}}</p>
+        <p>Lernzeit: {{getCurrentLernzeit() | timeFormat}}</p>
+        <p>Pause: {{getCurrentPause() | timeFormat}}</p>
+      </div>
+      <div *ngIf="block.fachId != getCurrentBlockId()">
+        <p>Modul: {{block.modulId}}</p>
+        <p>Lernzeit: {{block.lernzeitSeconds | timeFormat}}</p>
+        <p>Pause: {{block.pausezeitSeconds | timeFormat}}</p>
+      </div>
+    </div>
   </div>
   <div class="bordered">
     <button id="session-start-btn" class="sh-btn" *ngIf="sessionStarted" (click)="startSession()">Session starten</button>
