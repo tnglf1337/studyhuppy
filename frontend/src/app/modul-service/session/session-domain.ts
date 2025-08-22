@@ -4,7 +4,7 @@ export class Block {
   lernzeitSeconds: number;
   pausezeitSeconds: number;
 
-  constructor(lernzeitSeconds: number, pausezeitSeconds: number, id?: string) {
+  constructor(lernzeitSeconds: number, pausezeitSeconds: number, modulId? : string, id?: string) {
     this.id = id;
     this.lernzeitSeconds = lernzeitSeconds;
     this.pausezeitSeconds = pausezeitSeconds;
