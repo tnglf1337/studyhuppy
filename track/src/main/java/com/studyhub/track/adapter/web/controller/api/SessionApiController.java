@@ -13,9 +13,11 @@ public class SessionApiController {
 
 	@PostMapping("/create")
 	public ResponseEntity<Void> createSession(@RequestBody Session session) {
-		// Logic to create a session
 		System.out.println("ping session create");
 		System.out.println(session);
+
+		//Todo - db schema erstellen, klassen dafür erstellen und objekt speichern und testen
+
 		return ResponseEntity.ok().build();
 	}
 }

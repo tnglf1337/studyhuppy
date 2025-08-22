@@ -1,1 +1,22 @@
-<p>create works!</p>
+<div class="session-container">
+  <form>
+    <label>Anzahl Blöcke:</label>
+    <select [(ngModel)]="anzahlBloecke" name="blocke-select" (change)="setSessionConfigData()">
+      <option [value]="1">1</option>
+      <option [value]="2" selected>2</option>
+      <option [value]="3">3</option>
+      <option [value]="4">4</option>
+      <option [value]="5">5</option>
+    </select>
+  </form>
+  <div class="blocks-container">
+    <Lernblock *ngFor="let block of getBlocks(); let i = index"
+               [index]="i" [block]="getBlock(i)"
+               [module] = "module">
+    </Lernblock>
+  </div>
+  <div class="btn-group-container">
+    <button id="session-save-btn" class="sh-btn" (click)="saveSession()">Session speichern</button>
+  </div>
+</div>
+

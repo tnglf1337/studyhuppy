@@ -1,1 +1,6 @@
-<p>start works!</p>
+<div class="btn-session-management-container">
+  <button id="session-start-btn" class="sh-btn" *ngIf="sessionStarted" (click)="startSession()">Session starten</button>
+  <button id="session-pause-btn" class="sh-btn" *ngIf="!sessionStarted && !sessionPaused" (click)="pauseSession()">Session pausieren</button>
+  <button id="session-resume-btn" class="sh-btn" *ngIf="!sessionStarted && sessionPaused" (click)="resumeSession()">Session fortsetzen</button>
+  <button id="session-abort-btn" class="sh-btn" *ngIf="!sessionStarted" (click)="abortThisSession()">Session abbrechen</button>
+</div>
