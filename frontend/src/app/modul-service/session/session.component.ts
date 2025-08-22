@@ -36,4 +36,8 @@ export class SessionComponent implements OnInit{
     this.session = new Session("dummy titel", "eine session", blocks);
     console.log(this.session)
   }
+
+  getBlock(index : number) : Block {
+    return this.session.blocks[index];
+  }
 }

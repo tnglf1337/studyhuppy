@@ -2,6 +2,7 @@ import {Component, inject, Input, OnInit} from '@angular/core';
 import {ModuleApiService} from '../../module/module-api.service';
 import {Modul} from '../../module/domain';
 import {NgForOf} from '@angular/common';
+import {Block} from '../session-domain';
 
 @Component({
   selector: 'Lernblock',
@@ -14,6 +15,7 @@ import {NgForOf} from '@angular/common';
 })
 export class BlockComponent implements OnInit{
   @Input() index!: number;
+  @Input() block!: Block;
 
   module : Modul[] = []
   modulService = inject(ModuleApiService)
@@ -27,5 +29,19 @@ export class BlockComponent implements OnInit{
         }
       }
     )
+  }
+
+  setLernzeitOfBlock(event : Event): void {
+    const select = event.target as HTMLSelectElement;
+    const minutes = Number(select.value);
+    this.block.setLernzeitSeconds(minutes * 60);
+    console.log(`[Block ${this.index}] Lernzeit gesetzt: ${this.block.lernzeitSeconds}`);
+  }
+
+  setPauseOfBlock(event : Event): void {
+    const select = event.target as HTMLSelectElement;
+    const minutes = Number(select.value);
+    this.block.setPausezeitSeconds(minutes * 60)
+    console.log(`[Block ${this.index}] Pause gesetzt: ${this.block.lernzeitSeconds}`);
   }
 }

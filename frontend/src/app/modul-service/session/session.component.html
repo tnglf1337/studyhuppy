@@ -14,11 +14,10 @@
   </form>
   <div>
     <Lernblock *ngFor="let block of getBlocks(); let i = index"
-               [index]="i + 1">
+               [index]="i" [block]="getBlock(i)">
     </Lernblock>
   </div>
 </div>
-
 
 <button>Session speichern</button>
 <button>Session starten</button>

@@ -1,12 +1,22 @@
 <div class="block-container">
-  <h6> Block {{index}}</h6>
-  <select>
-    <option>Lernblock</option>
-    <option>Pausenblock</option>
-  </select>
+  <h6> Block {{index + 1}}</h6>
   <select>
     <option *ngFor="let modul of module" [value]="modul.fachId">{{modul.name}}</option>
   </select>
-  <p>Zeit: 45min</p>
-  <p>Pause: 5min</p>
+
+  <label>Lernzeit:</label>
+  <select (change)="setLernzeitOfBlock($event)">
+    <option [value]="10">10min</option>
+    <option [value]="20">20min</option>
+    <option [value]="30">30min</option>
+    <option [value]="40">40min</option>
+  </select>
+
+  <label>Pause:</label>
+  <select (change)="setPauseOfBlock($event)">
+    <option [value]="10">10min</option>
+    <option [value]="20">20min</option>
+    <option [value]="30">30min</option>
+    <option [value]="40">40min</option>
+  </select>
 </div>
