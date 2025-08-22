@@ -13,9 +13,9 @@
     </select>
   </form>
   <div>
-    <p *ngFor="let i of [].constructor(anzahlBloecke); let index = index">
-      Block {{ index + 1 }}
-    </p>
+    <Lernblock *ngFor="let block of getBlocks(); let i = index"
+               [index]="i + 1">
+    </Lernblock>
   </div>
 </div>
 

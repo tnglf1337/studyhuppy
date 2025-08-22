@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LernblockComponent } from './lernblock.component';
+import { BlockComponent } from './block.component';
 
 describe('LernblockComponent', () => {
-  let component: LernblockComponent;
-  let fixture: ComponentFixture<LernblockComponent>;
+  let component: BlockComponent;
+  let fixture: ComponentFixture<BlockComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LernblockComponent]
+      imports: [BlockComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LernblockComponent);
+    fixture = TestBed.createComponent(BlockComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {ModuleApiService} from '../../module/module-api.service';
 import {Modul} from '../../module/domain';
 import {NgForOf} from '@angular/common';
@@ -8,11 +8,13 @@ import {NgForOf} from '@angular/common';
   imports: [
     NgForOf
   ],
-  templateUrl: './lernblock.component.html',
+  templateUrl: './block.component.html',
   standalone: true,
-  styleUrl: './lernblock.component.scss'
+  styleUrl: './block.component.scss'
 })
-export class LernblockComponent implements OnInit{
+export class BlockComponent implements OnInit{
+  @Input() index!: number;
+
   module : Modul[] = []
   modulService = inject(ModuleApiService)
 
