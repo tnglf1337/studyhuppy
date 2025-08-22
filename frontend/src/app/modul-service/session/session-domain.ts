@@ -1,5 +1,6 @@
 export class Block {
   id?: string;
+  modulId?: string;
   lernzeitSeconds: number;
   pausezeitSeconds: number;
 
@@ -7,6 +8,10 @@ export class Block {
     this.id = id;
     this.lernzeitSeconds = lernzeitSeconds;
     this.pausezeitSeconds = pausezeitSeconds;
+  }
+
+  setModulId(modulId: string): void {
+    this.modulId = modulId;
   }
 
   setLernzeitSeconds(seconds: number): void {
