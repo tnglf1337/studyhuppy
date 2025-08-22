@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
 import {BlockComponent} from './block/block.component';
 import {Block, Session} from './session-domain';
+import {SessionApiService} from './session-api.service';
 
 
 @Component({
@@ -13,6 +14,7 @@ import {Block, Session} from './session-domain';
   styleUrl: './session.component.scss'
 })
 export class SessionComponent implements OnInit{
+  sessionApiService = inject(SessionApiService)
   anzahlBloecke : number = 2;
   session: any
 
@@ -30,7 +32,7 @@ export class SessionComponent implements OnInit{
     let blocks = []
 
     for(let i = 0; i < this.anzahlBloecke; i++) {
-      const block = new Block(0, 0);
+      const block = new Block(300, 300);
       blocks.push(block)
     }
     this.session = new Session("dummy titel", "eine session", blocks);
@@ -39,5 +41,9 @@ export class SessionComponent implements OnInit{
 
   getBlock(index : number) : Block {
     return this.session.blocks[index];
+  }
+
+  saveSession(): void {
+    this.sessionApiService.saveSession(this.session).subscribe()
   }
 }
