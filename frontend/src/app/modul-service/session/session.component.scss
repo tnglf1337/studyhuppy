@@ -1,11 +1,53 @@
-.session-config-container {
+.main-container {
+  flex-direction: column;
+  align-items: center;
+  width: 90vw;
+}
+
+.blocks-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.session-container {
+  width: 40%;
   background-color: orange;
   border-color: black;
   border-style: solid;
+  margin: 10px;
 }
 
-.block-container {
-  background-color: blue;
-  border-color: black;
-  border-style: solid;
+.btn-group-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btn-session-management-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;}
+
+.sh-btn {
+  width: 150px !important;
+}
+
+#session-start-btn {
+  background-color: #d5ff98;
+}
+
+#session-pause-btn {
+  background-color: #e78508;
+}
+
+#session-resume-btn {
+  background-color: #65d6ff;
+}
+
+#session-abort-btn {
+  background-color: #fa0000;
 }
