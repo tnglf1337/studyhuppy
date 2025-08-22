@@ -8,7 +8,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 public class Session {
-	private UUID id;
+	private UUID fachId;
 	private String username;
 	private String titel;
 	private String beschreibung;

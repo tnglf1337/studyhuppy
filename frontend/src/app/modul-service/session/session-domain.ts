@@ -1,11 +1,12 @@
 export class Block {
-  id?: string;
+  fachid?: string;
   modulId?: string;
   lernzeitSeconds: number;
   pausezeitSeconds: number;
 
-  constructor(lernzeitSeconds: number, pausezeitSeconds: number, modulId? : string, id?: string) {
-    this.id = id;
+  constructor(lernzeitSeconds: number, pausezeitSeconds: number, fachId?: string, modulId? : string) {
+    this.fachid = fachId;
+    this.modulId = modulId;
     this.lernzeitSeconds = lernzeitSeconds;
     this.pausezeitSeconds = pausezeitSeconds;
   }
@@ -24,13 +25,13 @@ export class Block {
 }
 
 export class Session {
-  id?: string;
+  fachId?: string;
   titel: string;
   beschreibung: string;
   blocks: Block[];
 
-  constructor(titel: string, beschreibung: string, blocks: Block[] = [], id?: string) {
-    this.id = id;
+  constructor(titel: string, beschreibung: string, blocks: Block[] = [], fachId?: string) {
+    this.fachId = fachId;
     this.titel = titel;
     this.beschreibung = beschreibung;
     this.blocks = blocks;
