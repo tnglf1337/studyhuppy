@@ -1,3 +1,7 @@
+.bordered {
+  border: 2px solid black;
+}
+
 .sh-btn {
   width: 150px !important;
 }
@@ -16,4 +20,8 @@
 
 #session-abort-btn {
   background-color: #fa0000;
+}
+
+p {
+  margin: 0;
 }

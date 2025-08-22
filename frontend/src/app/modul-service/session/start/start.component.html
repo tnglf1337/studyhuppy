@@ -1,6 +1,23 @@
-<div class="btn-session-management-container">
-  <button id="session-start-btn" class="sh-btn" *ngIf="sessionStarted" (click)="startSession()">Session starten</button>
-  <button id="session-pause-btn" class="sh-btn" *ngIf="!sessionStarted && !sessionPaused" (click)="pauseSession()">Session pausieren</button>
-  <button id="session-resume-btn" class="sh-btn" *ngIf="!sessionStarted && sessionPaused" (click)="resumeSession()">Session fortsetzen</button>
-  <button id="session-abort-btn" class="sh-btn" *ngIf="!sessionStarted" (click)="abortThisSession()">Session abbrechen</button>
+<div class="main-container d-flex flex-column align-items-center">
+  <div class="bordered">
+    <p>Sie haben noch keine Lern-Sessions erstellt. <a [routerLink]="'/module/session/create'">Lern-Session erstellen</a></p>
+  </div>
+  <div class="bordered">
+    <p>Session-Konfiguration auswählen</p>
+    <select>
+      <!-- TODO aus dem backend holen -->
+      <option>Normal während Vorlesungs-Zeit</option>
+      <option>Intensiv</option>
+    </select>
+  </div>
+  <div class="bordered">
+    <p>Hier kommen die blöcke etc</p>
+  </div>
+  <div class="bordered">
+    <button id="session-start-btn" class="sh-btn" *ngIf="sessionStarted" (click)="startSession()">Session starten</button>
+    <button id="session-pause-btn" class="sh-btn" *ngIf="!sessionStarted && !sessionPaused" (click)="pauseSession()">Session pausieren</button>
+    <button id="session-resume-btn" class="sh-btn" *ngIf="!sessionStarted && sessionPaused" (click)="resumeSession()">Session fortsetzen</button>
+    <button id="session-abort-btn" class="sh-btn" *ngIf="!sessionStarted" (click)="abortThisSession()">Session abbrechen</button>
+  </div>
 </div>
+

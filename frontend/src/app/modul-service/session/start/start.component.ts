@@ -2,12 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {SessionStateManager} from '../session-state-manager.service';
 import {Block, Session} from '../session-domain';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-session-start',
-  imports: [NgIf],
+  imports: [NgIf, RouterLink],
   templateUrl: './start.component.html',
-  styleUrl: './start.component.scss'
+  styleUrls: ['./start.component.scss', '../../../general.scss', '../../../button.scss']
 })
 export class SessionStartComponent implements OnInit{
   session: any // TODO: need to get all configured sessions from backend
