@@ -12,9 +12,8 @@ public class SessionService {
 		this.sessionRepository = sessionRepository;
 	}
 
-	public void save(Session session) {
-		// implement db connection and save logic here
-		sessionRepository.save(session);
+	public boolean save(Session session) {
+		Session saved = sessionRepository.save(session);
+		return saved != null;
 	}
-
 }

@@ -9,7 +9,7 @@ public class SessionMapper {
 		}
 		return new SessionDto(
 				null,
-				session.getId(),
+				session.getFachId(),
 				session.getUsername(),
 				session.getTitel(),
 				session.getBeschreibung(),
