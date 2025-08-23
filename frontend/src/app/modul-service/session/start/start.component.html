@@ -14,14 +14,14 @@
           </option>
         </select>
       </div>
-      <div class="block-container blue">
+      <div class="block-wrapper">
         <div class="block-container" *ngFor="let block of selectedSession?.blocks" [ngClass]="{ 'active-block': block.fachId == getCurrentBlockId() && !sessionStarted }">
           <div *ngIf="block.fachId == getCurrentBlockId()">
             <table>
               <tbody>
               <tr>
                 <td class="td-label">Modul:</td>
-                <td>{{block.modulId}}</td>
+                <td>{{block.modulName}}</td>
               </tr>
               <tr>
                 <td class="td-label">Lernzeit:</td>
@@ -39,7 +39,7 @@
               <tbody>
               <tr>
                 <td class="td-label">Modul:</td>
-                <td>{{block.modulId}}</td>
+                <td>{{block.modulName}}</td>
               </tr>
               <tr>
                 <td class="td-label">Lernzeit:</td>

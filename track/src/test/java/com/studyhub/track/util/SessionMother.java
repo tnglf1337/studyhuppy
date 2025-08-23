@@ -13,7 +13,7 @@ public class SessionMother {
 		List<Block> blocks = new ArrayList<>();
 
 		for(int i = 1; i < n+1; i++) {
-			blocks.add(new Block(UUID.randomUUID(), UUID.randomUUID(), 1000*i, 2000*i));
+			blocks.add(new Block(UUID.randomUUID(), UUID.randomUUID(), "Modul " + i, 1000*i, 2000*i));
 		}
 
 		return new Session(
@@ -29,7 +29,7 @@ public class SessionMother {
 		List<Block> blocks = new ArrayList<>();
 
 		for(int i = 1; i < n+1; i++) {
-			blocks.add(new Block(UUID.randomUUID(), UUID.randomUUID(), 1000*i, 2000*i));
+			blocks.add(new Block(UUID.randomUUID(), UUID.randomUUID(), "Modul " + i,1000*i, 2000*i));
 		}
 
 		return new Session(

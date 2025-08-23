@@ -22,6 +22,21 @@
   width: 100%;
 }
 
+.block-wrapper {
+  background-color: rgb(237, 241, 248);
+  border-color: lightgray;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0.375rem;
+  margin: 10px;
+  padding: 10px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .block-container {
   background-color: white;
   border-color: lightgray;
@@ -30,12 +45,7 @@
   border-radius: 0.375rem;
   margin: 10px;
   padding: 10px;
-  display: flex;
-
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-
+  width: 100%;
 }
 
 .blue {
@@ -43,7 +53,7 @@
 }
 
 .td-label {
-  width: 25%;
+  min-width:100px;
 }
 
 td {

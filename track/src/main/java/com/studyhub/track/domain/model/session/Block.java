@@ -9,6 +9,7 @@ import java.util.UUID;
 public class Block {
 	private UUID fachId;
 	private UUID modulId;
+	private String modulName;
 	private int lernzeitSeconds;
 	private int pausezeitSeconds;
 }

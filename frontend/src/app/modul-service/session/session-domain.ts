@@ -45,15 +45,14 @@ export class Session {
   }
 
   validSession(): boolean {
-    let isValid = true;
+    if(this.titel == "" || this.titel == null) return false
 
     for (const block of this.blocks) {
       if (!block.modulId || block.lernzeitSeconds <= 0 || block.pausezeitSeconds < 0) {
-        isValid = false;
-        break;
+        return false
       }
     }
 
-    return isValid
+    return true
   }
 }

@@ -64,10 +64,9 @@ export class SessionStartComponent implements OnInit{
     const secondsLearned = this.sessionStateManager.getCurrentTotal()
     this.modulService.postRawSeconds(modulId, secondsLearned).subscribe()
 
-    this.sessionStateManager.printTotaleLernzeit()
     this.sessionStateManager.pause()
     this.sessionStarted = true;
-    this.sessionStateManager.clearState();
+    //this.sessionStateManager.clearState();
     this.ngOnInit()
   }
 
