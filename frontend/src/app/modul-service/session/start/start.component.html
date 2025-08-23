@@ -53,12 +53,14 @@
             </table>
           </div>
         </div>
-      </div>
-      <div>
-        <button class="sh-btn" *ngIf="sessionStarted" (click)="startSession()">Session starten</button>
-        <button id="session-pause-btn" class="sh-btn" *ngIf="!sessionStarted && !sessionPaused" (click)="pauseSession()">Session pausieren</button>
-        <button id="session-resume-btn" class="sh-btn" *ngIf="!sessionStarted && sessionPaused" (click)="resumeSession()">Session fortsetzen</button>
-        <button id="session-abort-btn" class="sh-btn" *ngIf="!sessionStarted" (click)="abortThisSession()">Session abbrechen</button>
+        <div class="d-flex flex-column align-items-center">
+          <button class="sh-btn" *ngIf="sessionStarted" (click)="startSession()">Session starten</button>
+        </div>
+        <div class="d-flex flex-row align-content-center justify-content-center">
+          <button id="session-pause-btn" class="sh-btn" *ngIf="!sessionStarted && !sessionPaused" (click)="pauseSession()">Session pausieren</button>
+          <button id="session-resume-btn" class="sh-btn" *ngIf="!sessionStarted && sessionPaused" (click)="resumeSession()">Session fortsetzen</button>
+          <button id="session-abort-btn" class="sh-btn" *ngIf="!sessionStarted" (click)="abortThisSession()">Session abbrechen</button>
+        </div>
       </div>
     </div>
   </div>

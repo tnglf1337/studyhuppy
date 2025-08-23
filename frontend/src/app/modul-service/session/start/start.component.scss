@@ -56,17 +56,29 @@ td {
 
 .sh-btn {
   width: 150px !important;
+  margin: 2px;
 }
 
 #session-pause-btn {
+  background-color: #e19a40;
+}
+#session-pause-btn:hover {
   background-color: #e78508;
 }
 
 #session-resume-btn {
-  background-color: #65d6ff;
+  background-color: #7ed2f1;
+}
+
+#session-resume-btn:hover {
+  background-color: #30c1f6;
 }
 
 #session-abort-btn {
+  background-color: #ea5252;
+}
+
+#session-abort-btn:hover {
   background-color: #fa0000;
 }
 
