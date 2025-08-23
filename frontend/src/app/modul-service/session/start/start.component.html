@@ -1,32 +1,63 @@
 <div class="main-container d-flex flex-column align-items-center">
-  <div class="bordered">
-    <p>Sie haben noch keine Lern-Sessions erstellt. <a [routerLink]="'/module/session/create'">Lern-Session erstellen</a></p>
-  </div>
-  <div class="bordered">
-    <p>Session-Konfiguration auswählen</p>
-    <select>
-      <option *ngFor="let session of sessions"> {{session.titel}}</option>
-    </select>
-  </div>
-  <div class="bordered">
-    <div class="bordered" *ngFor="let block of selectedSession?.blocks">
-      <div *ngIf="block.fachId == getCurrentBlockId()">
-        <p>Modul: {{block.modulId}}</p>
-        <p>Lernzeit: {{getCurrentLernzeit() | timeFormat}}</p>
-        <p>Pause: {{getCurrentPause() | timeFormat}}</p>
+  <div class="d-flex flex-column align-items-center">
+    <div class="pre-session-container" *ngIf="sessions == null">
+      <p>Sie haben noch keine Lern-Sessions erstellt.</p>
+      <p>Erstellen sie <a [routerLink]="'/module/session/create'">hier</a> eine Lern-Session!</p>
+    </div>
+    <div *ngIf="sessions != null">
+      <div class="pre-session-container">
+        <p>Session-Konfiguration auswählen</p>
+        <select class="form-select">
+          <option *ngFor="let session of sessions"> {{session.titel}}</option>
+        </select>
       </div>
-      <div *ngIf="block.fachId != getCurrentBlockId()">
-        <p>Modul: {{block.modulId}}</p>
-        <p>Lernzeit: {{block.lernzeitSeconds | timeFormat}}</p>
-        <p>Pause: {{block.pausezeitSeconds | timeFormat}}</p>
+      <div class="block-container blue">
+        <div class="block-container" *ngFor="let block of selectedSession?.blocks" [ngClass]="{ 'active-block': block.fachId == getCurrentBlockId() && !sessionStarted }">
+          <div *ngIf="block.fachId == getCurrentBlockId()">
+            <table>
+              <tbody>
+              <tr>
+                <td class="td-label">Modul:</td>
+                <td>{{block.modulId}}</td>
+              </tr>
+              <tr>
+                <td class="td-label">Lernzeit:</td>
+                <td>{{getCurrentLernzeit() | timeFormat}}</td>
+              </tr>
+              <tr>
+                <td class="td-label">Pause:</td>
+                <td>{{getCurrentPause() | timeFormat}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="block.fachId != getCurrentBlockId()">
+            <table>
+              <tbody>
+              <tr>
+                <td class="td-label">Modul:</td>
+                <td>{{block.modulId}}</td>
+              </tr>
+              <tr>
+                <td class="td-label">Lernzeit:</td>
+                <td>{{block.lernzeitSeconds | timeFormat}}</td>
+              </tr>
+              <tr>
+                <td class="td-label">Pause:</td>
+                <td>{{block.pausezeitSeconds | timeFormat}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="sh-btn" *ngIf="sessionStarted" (click)="startSession()">Session starten</button>
+        <button id="session-pause-btn" class="sh-btn" *ngIf="!sessionStarted && !sessionPaused" (click)="pauseSession()">Session pausieren</button>
+        <button id="session-resume-btn" class="sh-btn" *ngIf="!sessionStarted && sessionPaused" (click)="resumeSession()">Session fortsetzen</button>
+        <button id="session-abort-btn" class="sh-btn" *ngIf="!sessionStarted" (click)="abortThisSession()">Session abbrechen</button>
       </div>
     </div>
-  </div>
-  <div class="bordered">
-    <button id="session-start-btn" class="sh-btn" *ngIf="sessionStarted" (click)="startSession()">Session starten</button>
-    <button id="session-pause-btn" class="sh-btn" *ngIf="!sessionStarted && !sessionPaused" (click)="pauseSession()">Session pausieren</button>
-    <button id="session-resume-btn" class="sh-btn" *ngIf="!sessionStarted && sessionPaused" (click)="resumeSession()">Session fortsetzen</button>
-    <button id="session-abort-btn" class="sh-btn" *ngIf="!sessionStarted" (click)="abortThisSession()">Session abbrechen</button>
   </div>
 </div>
 

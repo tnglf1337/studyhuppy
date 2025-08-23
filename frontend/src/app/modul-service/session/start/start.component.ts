@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {SessionStateManager} from '../session-state-manager.service';
 import {Session} from '../session-domain';
 import {RouterLink} from '@angular/router';
@@ -8,7 +8,7 @@ import {TimeFormatPipe} from '../../module/time-format.pipe';
 
 @Component({
   selector: 'app-session-start',
-  imports: [NgIf, RouterLink, NgForOf, TimeFormatPipe],
+  imports: [NgIf, RouterLink, NgForOf, TimeFormatPipe, NgClass],
   templateUrl: './start.component.html',
   standalone: true,
   styleUrls: ['./start.component.scss', '../../../general.scss', '../../../button.scss']
