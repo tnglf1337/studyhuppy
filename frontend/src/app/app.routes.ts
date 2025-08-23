@@ -34,6 +34,7 @@ import {KontaktComponent} from './app-layout/footer/kontakt/kontakt.component';
 import {SessionComponent} from './modul-service/session/session.component';
 import {SessionStartComponent} from './modul-service/session/start/start.component';
 import {SessionCreateComponent} from './modul-service/session/create/create.component';
+import {SessionDeleteComponent} from './modul-service/session/delete/delete.component';
 
 export const routes: Routes = [
   {
@@ -123,6 +124,10 @@ export const routes: Routes = [
             {
               path: 'session/create',
               component: SessionCreateComponent
+            },
+            {
+              path: 'session/delete',
+              component: SessionDeleteComponent
             },
             {
               path: 'einstellungen',

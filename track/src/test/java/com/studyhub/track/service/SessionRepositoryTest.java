@@ -22,6 +22,8 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers
@@ -81,5 +83,15 @@ public class SessionRepositoryTest {
 		assertThat(sessions).hasSize(2);
 		assertThat(sessions.get(0).getUsername()).isEqualTo(username);
 		assertThat(sessions.get(1).getUsername()).isEqualTo(username);
+	}
+
+	@Test
+	@DisplayName("Eine Session kann anhand der Fach-Id gelöscht werden")
+	void deleteByFachId() {
+		UUID fachId = UUID.fromString("33333333-3333-3333-3333-333333333333");
+
+		long n = repository.deleteByFachId(fachId);
+
+		assertThat(n).isEqualTo(1);
 	}
 }

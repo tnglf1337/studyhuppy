@@ -4,6 +4,7 @@ import com.studyhub.track.domain.model.session.Session;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class SessionService {
@@ -21,5 +22,9 @@ public class SessionService {
 
 	public List<Session> getSessionsByUsername(String username) {
 		return sessionRepository.findAllByUsername(username);
+	}
+
+	public void deleteSession(UUID fachId) {
+		sessionRepository.deleteByFachId(fachId);
 	}
 }

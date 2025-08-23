@@ -25,4 +25,12 @@ export class SessionApiService {
     const headers = this.headerService.createAuthHeader()
     return this.http.get<any>(this.SESSION_BASE_API + '/get-sessions', {headers})
   }
+
+  deleteSession(fachId : string | undefined) : Observable<any>{
+    const headers = this.headerService.createAuthHeader()
+    return this.http.delete<any>(this.SESSION_BASE_API + "/delete-session", {
+      headers,
+      body: { fachId }
+    })
+  }
 }
