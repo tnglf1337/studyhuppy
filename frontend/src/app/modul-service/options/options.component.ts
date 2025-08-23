@@ -47,7 +47,7 @@ export class OptionsComponent implements OnInit{
 
   resetTimer() {
     this.service.resetTimer(this.modulFachId).subscribe({
-      next: () => this.sb.openInfo("Timer wurde erfolgreich zurückgesetzt"),
+      next: () => this.sb.openSuccess("Timer wurde erfolgreich zurückgesetzt"),
       error: () => this.sb.openError("Timer von konnte nicht zurückgesetzt werden"),
     })
   }
@@ -56,7 +56,7 @@ export class OptionsComponent implements OnInit{
     this.service.deleteModul(this.modulFachId).subscribe({
       next: () => {
         this.module = this.module.filter(modul => modul.fachId !== this.modulFachId);
-        this.sb.openInfo("Modul erfolgreich gelöscht")
+        this.sb.openSuccess("Modul erfolgreich gelöscht")
       },
       error: (err) => {
         this.sb.openError(`Modul konnte nicht gelöscht werden. Grund: ${err}`)
@@ -74,7 +74,7 @@ export class OptionsComponent implements OnInit{
           this.sb.openError("Fehler beim Laden der Daten für Methode 'putAktivStatus'")
         }
       });
-      this.sb.openInfo("Modulaktivität geändert")
+      this.sb.openSuccess("Modulaktivität geändert")
     })
   }
 
@@ -85,7 +85,7 @@ export class OptionsComponent implements OnInit{
       this.service.sendAddTimeData(data).subscribe({
         next: () => {
           this.log.debug("time data successfully sent")
-          this.sb.openInfo("Zeit erfolgreich hinzugefügt")
+          this.sb.openSuccess("Zeit erfolgreich hinzugefügt")
         },
         error: (err) => {
           this.log.debug(`error sending time data. reason: ${err}`)
@@ -102,7 +102,7 @@ export class OptionsComponent implements OnInit{
       this.service.sendKlausurDateData(data).subscribe({
         next: () => {
           this.log.debug("klausur date data successfully sent")
-          this.sb.openInfo("Klausurdatum-Daten erfolgreich versendet")
+          this.sb.openSuccess("Klausurdatum-Daten erfolgreich versendet")
         },
         error: (err) => {
           this.log.debug(`error sending klausur date data. reason: ${err}`)
