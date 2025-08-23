@@ -2,9 +2,6 @@ import {Component, inject, OnInit} from '@angular/core';
 import {Modul} from '../module/domain';
 import {CommonModule} from '@angular/common';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatFormField, MatLabel} from '@angular/material/input';
-import {MatSelect} from '@angular/material/select';
-import {MatOption} from '@angular/material/core';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {ModuleApiService} from '../module/module-api.service';
 import {LoggingService} from '../../logging.service';
@@ -12,7 +9,7 @@ import {SnackbarService} from '../../snackbar.service';
 
 @Component({
   selector: 'app-options',
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatFormField, MatLabel, MatSelect, MatOption, MatSlideToggle],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatSlideToggle],
   templateUrl: './options.component.html',
   standalone: true,
   styleUrls: ['./options.component.scss', '../../color.scss', '../../general.scss']
