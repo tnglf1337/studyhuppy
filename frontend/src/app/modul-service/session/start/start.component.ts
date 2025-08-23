@@ -85,4 +85,12 @@ export class SessionStartComponent implements OnInit{
   selectSession(selectedSession : Session) {
     this.selectedSession = selectedSession
   }
+
+  getComputedSessionZeit(session : Session) : number {
+    let totalSessionZeit: number | undefined = 0
+    for(let i = 0; i < (session?.blocks?.length ?? 0); i++) {
+      totalSessionZeit += (session?.blocks?.[i]?.lernzeitSeconds ?? 0) + (session?.blocks?.[i]?.pausezeitSeconds ?? 0)
+    }
+    return totalSessionZeit
+  }
 }

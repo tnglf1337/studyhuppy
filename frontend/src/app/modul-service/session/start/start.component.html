@@ -10,7 +10,7 @@
         <select class="form-select">
           <option *ngFor="let session of sessions"
                   (click)="selectSession(session)">
-            {{session.titel}}
+            {{session.titel}} ({{getComputedSessionZeit(session) | timeFormat}})
           </option>
         </select>
       </div>
