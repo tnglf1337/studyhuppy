@@ -1,9 +1,19 @@
 <div class="main-container">
   <div class="session-container">
-    <p>Hier können Sie Lern-Sessions starten und erstellen, die aus Zeitblöcken bestehen und Ihre Module umfassen. Die Lernzeiten werden zu ihren erstellten Modulen hinzugefügt</p>
-    <div class="d-flex flex-column align-items-center">
-      <a [routerLink]="'/module/session/start'" class="mb-2">Lern-Session starten</a>
-      <a [routerLink]="'/module/session/create'" class="mb-2">Lern-Session erstellen</a>
+    <p id="intro-p">Hier können Sie Lern-Sessions erstellen und starten, die aus Zeitblöcken Ihrer Module bestehen. Die Lernzeiten werden zu ihren erstellten Modulen hinzugefügt.</p>
+    <div class="d-flex flex-row align-items-center">
+      <div class="card b" [routerLink]="'/module/session/start'">
+        <p>Lern-Session</p>
+        <p>starten</p>
+      </div>
+      <div class="card g" [routerLink]="'/module/session/create'">
+        <p>Lern-Session</p>
+        <p>erstellen</p>
+      </div>
+      <div class="card r" [routerLink]="'/module/session/delete'">
+        <p>Lern-Session</p>
+        <p>löschen</p>
+      </div>
     </div>
   </div>
 </div>

@@ -6,9 +6,6 @@
 
 .session-container {
   width: 40%;
-  background-color: orange;
-  border-color: black;
-  border-style: solid;
   margin: 10px;
 }
 
@@ -26,3 +23,30 @@
   flex-direction: row;
 }
 
+#intro-p {
+  font-size: 20px;
+}
+
+.card {
+  width: 200px;
+  height: 200px;
+  font-size: 25px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+.b {
+  background-color: #6c8aff;
+}
+
+.g {
+  background-color: #58da58;
+}
+
+.r {
+  background-color: #f85d5d;
+}
