@@ -39,6 +39,7 @@ export class SessionStateManager {
   startBlock(i: number) {
     if (i >= this.lernzeiten.length) {
       console.log("Alle Blöcke abgeschlossen!");
+      //this.audioService.playAudio("session-finish.mp3")
       return;
     }
 
@@ -51,8 +52,8 @@ export class SessionStateManager {
       if (this.lernzeiten[i] <= 0) {
         // Die Lernzeit des Blocks ist vorbei und wird dem Modul gutgeschrieben
         this.modulService.postRawSeconds(this.session!.blocks[i].modulId, this.currentTotal).subscribe()
+        this.handleAudioSounds(i)
 
-        this.audioService.playAudio("block-clear-1.mp3");
         clearInterval(this.currentLernzeitTimer);
         this.currentLernzeitIndex++;
         this.currentPauseTimer = setInterval(() => {
@@ -108,5 +109,15 @@ export class SessionStateManager {
 
   printTotaleLernzeit() {
     console.log(`Totale Lernzeit bisher: ${this.currentTotal}`)
+  }
+
+  handleAudioSounds(i : number) {
+    //Lernzeit des letzten Block läuft aus
+    if (i == this.lernzeiten.length-1) {
+      this.audioService.playAudio("session-finish.mp3")
+    } else {
+      // Lernzeit eines Zwischnblock läuft aus
+      this.audioService.playAudio("block-clear-1.mp3");
+    }
   }
 }
