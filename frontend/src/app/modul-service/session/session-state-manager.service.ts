@@ -102,6 +102,10 @@ export class SessionStateManager {
     return this.session!.blocks[this.currentLernzeitIndex].modulId
   }
 
+  setCurrentBlockId(fachId : string | undefined) {
+    this.currentBlockId = fachId ?? ""
+  }
+
   printTotaleLernzeit() {
     console.log(`Totale Lernzeit bisher: ${this.currentTotal}`)
   }

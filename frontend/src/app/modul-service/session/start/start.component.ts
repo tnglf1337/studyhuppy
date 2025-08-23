@@ -22,6 +22,7 @@ export class SessionStartComponent implements OnInit{
   sessionStateManager!: SessionStateManager;
   sessionStarted = true;
   sessionPaused = false;
+  sessionSelectIsDisabled = false
 
   ngOnInit(): void {
     this.sessionApiService.getSessions().subscribe({
@@ -44,6 +45,8 @@ export class SessionStartComponent implements OnInit{
   startSession(): void {
     this.sessionStateManager.start()
     this.sessionStarted = false;
+    // Wenn eine Lern-Session gestartet wurde, darf nicht währenddessen die Session-Konfiguration gewechselt werden!
+    this.sessionSelectIsDisabled = true;
   }
 
   pauseSession(): void {
@@ -67,6 +70,8 @@ export class SessionStartComponent implements OnInit{
     this.sessionStateManager.pause()
     this.sessionStarted = true;
     //this.sessionStateManager.clearState();
+    // Nach einem Abbruch der Session können wieder andere Konfigurationen gewählt werden
+    this.sessionSelectIsDisabled = false;
     this.ngOnInit()
   }
 
@@ -83,7 +88,12 @@ export class SessionStartComponent implements OnInit{
   }
 
   selectSession(selectedSession : Session) {
+    // Setze die ausgewählte Session als globale ausgewählte Session
     this.selectedSession = selectedSession
+    // Setze für den UI-State die aktuelle Fach-Id des Blocks neu
+    this.sessionStateManager.setCurrentBlockId(this.selectedSession.blocks[0].fachId)
+    // Der State-Manager wird mit deer global gesetzen Session neu instanziiert
+    this.sessionStateManager = new SessionStateManager(this.modulService, this.selectedSession)
   }
 
   getComputedSessionZeit(session : Session) : number {

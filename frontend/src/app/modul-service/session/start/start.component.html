@@ -4,19 +4,22 @@
       <p>Sie haben noch keine Lern-Sessions erstellt.</p>
       <p>Erstellen sie <a [routerLink]="'/module/session/create'">hier</a> eine Lern-Session!</p>
     </div>
+
     <div *ngIf="sessions != null">
       <div class="pre-session-container">
         <p>Session-Konfiguration auswählen</p>
-        <select class="form-select">
+        <select class="form-select" [disabled]="sessionSelectIsDisabled">
           <option *ngFor="let session of sessions"
                   (click)="selectSession(session)">
             {{session.titel}} ({{getComputedSessionZeit(session) | timeFormat}})
           </option>
         </select>
       </div>
+
       <div class="block-wrapper">
         <div class="block-container" *ngFor="let block of selectedSession?.blocks" [ngClass]="{ 'active-block': block.fachId == getCurrentBlockId() && !sessionStarted }">
           <div *ngIf="block.fachId == getCurrentBlockId()">
+            <p>V1</p>
             <table>
               <tbody>
               <tr>
@@ -35,6 +38,7 @@
             </table>
           </div>
           <div *ngIf="block.fachId != getCurrentBlockId()">
+            <p>V2</p>
             <table>
               <tbody>
               <tr>
