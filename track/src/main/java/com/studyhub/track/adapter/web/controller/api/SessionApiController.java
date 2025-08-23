@@ -35,6 +35,7 @@ public class SessionApiController {
 
 	@PostMapping("/create")
 	public ResponseEntity<Void> createSession(@RequestBody SessionRequest sessionRequest, HttpServletRequest request) {
+		System.out.println(sessionRequest);
 		String username = jwtService.extractUsernameFromHeader(request);
 		boolean success = sessionService.save(sessionRequest.toEntity(username));
 

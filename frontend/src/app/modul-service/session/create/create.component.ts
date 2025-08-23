@@ -19,8 +19,6 @@ export class SessionCreateComponent implements OnInit{
   snackbarService = inject(SnackbarService)
   sessionApiService = inject(SessionApiService)
   anzahlBloecke : number = 2;
-  sessionTitel : string = "";
-  sessionBeschreibung : string = "";
   session: any
   module : Modul[] = []
   modulService = inject(ModuleApiService)
@@ -48,8 +46,7 @@ export class SessionCreateComponent implements OnInit{
       const block = new Block(10, 10, this.module?.[0]?.fachId);
       blocks.push(block)
     }
-    this.session = new Session(this.sessionTitel, this.sessionBeschreibung, blocks);
-    console.log(this.session)
+    this.session = new Session("", "", blocks);
   }
 
   getBlock(index : number) : Block {

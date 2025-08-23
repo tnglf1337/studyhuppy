@@ -18,6 +18,7 @@ export class SessionApiService {
   saveSession(session: Session): Observable<any> {
     const headers = this.headerService.createAuthHeader()
     return this.http.post<any>(this.SESSION_BASE_API + '/create', session, {headers})
+
   }
 
   getSessions(): Observable<any> {
