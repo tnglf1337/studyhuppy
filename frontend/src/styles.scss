@@ -13,9 +13,74 @@ body {
 
 .mat-mdc-snack-bar-container.snackbar-info {
   --mat-snack-bar-button-color: #fff;
-  --mdc-snackbar-container-color: rgb(16, 45, 92);
+  --mdc-snackbar-container-color: rgb(30, 64, 120);
   --mdc-snackbar-supporting-text-color: #fff;
-  font-family: 'Arial', fantasy;
+
+  position: fixed;
+  bottom: 7.5%;
+  left: 37.5%;
+  transform: none !important;
+  max-width: 500px;
+  z-index: 10000;
+}
+
+.mat-mdc-snack-bar-container.snackbar-info .mdc-snackbar__label {
+  font-family: 'Outfit', fantasy;
+  font-size: 17px;
+  line-height: inherit;
+}
+
+.mat-mdc-snack-bar-container.snackbar-info .mdc-snackbar__action {
+  font-family: 'Outfit', fantasy;
+  font-size: 17px;
+}
+
+.mat-mdc-snack-bar-container.snackbar-error {
+  --mat-snack-bar-button-color: #ececec;
+  --mdc-snackbar-container-color: rgb(216, 88, 88);
+  --mdc-snackbar-supporting-text-color: #efefef;
+
+  position: fixed;
+  bottom: 7.5%;
+  left: 37.5%;
+  transform: none !important;
+  max-width: 500px;
+  z-index: 10000;
+}
+
+.mat-mdc-snack-bar-container.snackbar-error .mdc-snackbar__label {
+  font-family: 'Outfit', fantasy;
+  font-size: 17px;
+  line-height: inherit;
+}
+
+.mat-mdc-snack-bar-container.snackbar-error .mdc-snackbar__action {
+  font-family: 'Outfit', fantasy;
+  font-size: 17px;
+}
+
+.mat-mdc-snack-bar-container.snackbar-success {
+  --mat-snack-bar-button-color: #424242;
+  --mdc-snackbar-container-color: #47FF94;
+  --mdc-snackbar-supporting-text-color: #424242;
+
+  position: fixed;
+  bottom: 7.5%;
+  left: 37.5%;
+  transform: none !important;
+  max-width: 500px;
+  z-index: 10000;
+}
+
+.mat-mdc-snack-bar-container.snackbar-success .mdc-snackbar__label {
+  font-family: 'Outfit', fantasy;
+  font-size: 17px;
+  line-height: inherit;
+}
+
+.mat-mdc-snack-bar-container.snackbar-success .mdc-snackbar__action {
+  font-family: 'Outfit', fantasy;
+  font-size: 17px;
 }
 
 

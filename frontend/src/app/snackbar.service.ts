@@ -12,13 +12,26 @@ export class SnackbarService {
 
   openInfo(message : string) {
     this.snackbar.open(message, "schließen", {
-      duration: this.DURATION
+      duration: this.DURATION,
+      panelClass: ['snackbar-info']
+    })
+  }
+
+  openSuccess(message : string) {
+    this.snackbar.open(message, "schließen", {
+      duration: this.DURATION,
+      panelClass: ['snackbar-success']
     })
   }
 
   openError(message : string) {
     this.snackbar.open(message, "schließen", {
-      duration: this.DURATION
+      duration: this.DURATION,
+      panelClass: ['snackbar-error']
     })
+  }
+
+  setDuration(dur : number) {
+    this.DURATION = dur
   }
 }
