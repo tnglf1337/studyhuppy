@@ -12,6 +12,7 @@ import {SnackbarService} from '../../../snackbar.service';
   selector: 'app-session-create',
   imports: [BlockComponent, FormsModule, NgForOf, ReactiveFormsModule],
   templateUrl: './create.component.html',
+  standalone: true,
   styleUrls: ['./create.component.scss', '../../../general.scss', '../../../button.scss', '../../../forms.scss', '../../../color.scss']
 })
 export class SessionCreateComponent implements OnInit{
