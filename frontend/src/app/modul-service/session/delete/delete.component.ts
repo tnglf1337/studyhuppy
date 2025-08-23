@@ -1,13 +1,16 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Session} from '../session-domain';
 import {SessionApiService} from '../session-api.service';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {SnackbarService} from '../../../snackbar.service';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-delete',
   imports: [
-    NgForOf
+    NgForOf,
+    NgIf,
+    RouterLink
   ],
   templateUrl: './delete.component.html',
   standalone: true,

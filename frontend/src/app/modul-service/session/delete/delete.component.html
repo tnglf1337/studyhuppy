@@ -1,14 +1,19 @@
 <div class="main-container align-items-center">
-  <div class="session-list-container bordered">
-    <table class="table">
-      <thead>
+  <div class="text-center p-3" *ngIf="sessions == null">
+    <p>Sie haben noch keine Lern-Sessions erstellt.</p>
+    <p>Erstellen sie <a [routerLink]="'/module/session/create'">hier</a> eine Lern-Session!</p>
+  </div>
+  <div *ngIf="sessions != null">
+    <div class="session-list-container bordered">
+      <table class="table">
+        <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Lern-Session</th>
           <th scope="col"></th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         <tr *ngFor="let session of sessions; let i = index">
           <th scope="row">{{i + 1}}</th>
           <td>{{session.titel}}</td>
@@ -18,8 +23,8 @@
             </a>
           </td>
         </tr>
-      </tbody>
-    </table>
-
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
