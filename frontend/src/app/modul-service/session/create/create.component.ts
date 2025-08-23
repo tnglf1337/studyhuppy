@@ -57,7 +57,7 @@ export class SessionCreateComponent implements OnInit{
     if(this.session.validSession()) {
       this.sessionApiService.saveSession(this.session).subscribe({
         next: (response) => {
-          this.snackbarService.openInfo("Session erfolgreich gespeichert.");
+          this.snackbarService.openSuccess("Session erfolgreich gespeichert.");
           this.setSessionConfigData();
         },
         error: (error) => {
