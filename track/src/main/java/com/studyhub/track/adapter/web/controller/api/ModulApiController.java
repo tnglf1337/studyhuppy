@@ -2,6 +2,7 @@ package com.studyhub.track.adapter.web.controller.api;
 
 import com.studyhub.track.adapter.authentication.AuthenticationService;
 import com.studyhub.track.adapter.metric.PrometheusMetrics;
+import com.studyhub.track.adapter.web.controller.request.dto.AddSecondsRequest;
 import com.studyhub.track.application.JWTService;
 import com.studyhub.track.adapter.db.modul.ModulDto;
 import com.studyhub.track.adapter.db.modul.ModulMapper;
@@ -15,14 +16,11 @@ import com.studyhub.track.application.service.dto.ModulUpdateRequest;
 import com.studyhub.track.application.service.dto.NeuerModulterminRequest;
 import com.studyhub.track.domain.model.modul.Modul;
 import com.studyhub.track.domain.model.modul.Modultermin;
-import io.micrometer.core.instrument.Metrics;
-import io.micrometer.core.instrument.Counter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.yaml.snakeyaml.util.Tuple;
 
 import java.util.List;
 import java.util.Map;
@@ -62,6 +60,14 @@ public class ModulApiController {
 		}
 		metrics.incrementTotalRequests();
 		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+
+	@AngularApi
+	@PostMapping("/add-seconds")
+	public ResponseEntity<Void> addSeconds(@RequestBody AddSecondsRequest request) {
+		System.out.println("blub");
+		modulService.addSecondsToModul(request.modulId(), request.secondsToAdd());
+		return ResponseEntity.ok().build();
 	}
 
 	@AngularApi

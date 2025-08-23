@@ -66,6 +66,16 @@ export class ModuleApiService {
     return this.http.post<any>(this.MODUL_BASE_API + '/update', payload, {headers})
   }
 
+  postRawSeconds(modulId : string, secondsToAdd : number) : Observable<any> {
+    const headers = this.headerService.createAuthHeader()
+
+    const payload = {
+      modulId: modulId,
+      secondsToAdd: secondsToAdd,
+    }
+    return this.http.post<any>(this.MODUL_BASE_API + '/add-seconds', payload, {headers})
+  }
+
   postFormData(formData : any) : Observable<any> {
     this.log.debug(`Try posting new modul data=${formData}...`)
     const headers = this.headerService.createAuthHeader()

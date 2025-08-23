@@ -232,4 +232,16 @@ public class ModulService {
 		}
 		return res;
 	}
+
+	public void addSecondsToModul(UUID uuid, int secondsToAdd) {
+		int oldSeconds = repo.findSecondsById(uuid);
+		oldSeconds += secondsToAdd;
+		try {
+			updateSeconds(uuid, oldSeconds);
+		} catch(Exception e) {
+			System.out.println("Error while updating seconds");
+			System.out.println(e.getMessage());
+		}
+
+	}
 }

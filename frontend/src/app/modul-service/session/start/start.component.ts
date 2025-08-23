@@ -5,6 +5,7 @@ import {Session} from '../session-domain';
 import {RouterLink} from '@angular/router';
 import {SessionApiService} from '../session-api.service';
 import {TimeFormatPipe} from '../../module/time-format.pipe';
+import {ModuleApiService} from '../../module/module-api.service';
 
 @Component({
   selector: 'app-session-start',
@@ -17,6 +18,7 @@ export class SessionStartComponent implements OnInit{
   sessions: any
   selectedSession!: Session | null;
   sessionApiService = inject(SessionApiService)
+  modulService = inject(ModuleApiService)
   sessionStateManager!: SessionStateManager;
   sessionStarted = true;
   sessionPaused = false;
@@ -34,11 +36,10 @@ export class SessionStartComponent implements OnInit{
         console.log("received sessions from backend", data);
         this.sessions = data
         this.selectedSession = this.sessions[0];
-        this.sessionStateManager = new SessionStateManager(this.selectedSession)
+        this.sessionStateManager = new SessionStateManager(this.modulService, this.selectedSession)
       }
     })
   }
-
 
   startSession(): void {
     this.sessionStateManager.start()
@@ -48,14 +49,22 @@ export class SessionStartComponent implements OnInit{
   pauseSession(): void {
     this.sessionStateManager.pause()
     this.sessionPaused = true;
+    this.sessionStateManager.printTotaleLernzeit()
   }
 
   resumeSession(): void {
     this.startSession()
     this.sessionPaused = false;
+    this.sessionStateManager.printTotaleLernzeit()
   }
 
   abortThisSession() : void {
+    // Die Session wird abgebrochen, aber die bisher gelernte Zeit wird dem Modul gutgeschrieben
+    const modulId = this.sessionStateManager.getCurrentBlockModulId()
+    const secondsLearned = this.sessionStateManager.getCurrentTotal()
+    this.modulService.postRawSeconds(modulId, secondsLearned).subscribe()
+
+    this.sessionStateManager.printTotaleLernzeit()
     this.sessionStateManager.pause()
     this.sessionStarted = true;
     this.sessionStateManager.clearState();

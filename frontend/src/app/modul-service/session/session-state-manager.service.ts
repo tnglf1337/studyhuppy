@@ -1,9 +1,12 @@
 import {Session} from './session-domain';
 import {AudioService} from './audio.service';
+import {ModuleApiService} from '../module/module-api.service';
+import {inject} from '@angular/core';
 
 export class SessionStateManager {
   audioService = new AudioService()
-  total : number = 0
+  modulService : ModuleApiService;
+  currentTotal : number = 0
   lernzeiten : number[] = []
   pausen : number[] = []
   session : any
@@ -15,8 +18,8 @@ export class SessionStateManager {
   currentBlockId : string
 
 
-  constructor(session : Session | null) {
-    console.log("session: ", session)
+  constructor(modulService: ModuleApiService, session : Session | null) {
+    this.modulService = modulService
     this.lernzeiten = session!.blocks.map(block => block.lernzeitSeconds);
     this.pausen = session!.blocks.map(block => block.pausezeitSeconds);
     this.currentBlockId = session!.blocks[0].fachId || "";
@@ -40,12 +43,15 @@ export class SessionStateManager {
     }
 
     this.currentLernzeitTimer = setInterval(() => {
-      this.total += 1;
+      this.currentTotal += 1;
       this.lernzeiten[i]--;
 
       console.log(`Block ${i} Lernzeit: ${this.lernzeiten[i]}`);
 
       if (this.lernzeiten[i] <= 0) {
+        // Die Lernzeit des Blocks ist vorbei und wird dem Modul gutgeschrieben
+        this.modulService.postRawSeconds(this.session!.blocks[i].modulId, this.currentTotal).subscribe()
+
         this.audioService.playAudio("block-clear-1.mp3");
         clearInterval(this.currentLernzeitTimer);
         this.currentLernzeitIndex++;
@@ -62,11 +68,13 @@ export class SessionStateManager {
         }, 1000);
       }
     }, 1000);
+
+    this.currentTotal = 0
     this.currentBlockId = this.session!.blocks[this.currentLernzeitIndex].fachId || "";
   }
 
   clearState() : void {
-    this.total = 0;
+    this.currentTotal = 0;
     this.lernzeiten = [];
     this.pausen = [];
     clearInterval(this.currentLernzeitTimer);
@@ -84,5 +92,17 @@ export class SessionStateManager {
 
   getCurrentBlockId() : string {
     return this.currentBlockId;
+  }
+
+  getCurrentTotal() {
+    return this.currentTotal
+  }
+
+  getCurrentBlockModulId() {
+    return this.session!.blocks[this.currentLernzeitIndex].modulId
+  }
+
+  printTotaleLernzeit() {
+    console.log(`Totale Lernzeit bisher: ${this.currentTotal}`)
   }
 }
