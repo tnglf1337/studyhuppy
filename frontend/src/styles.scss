@@ -1,8 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+  margin: 0;
+  font-family: "Outfit", "serif";
+}
 
 .success-snack {
   background-color: green;
 }
+
+.mat-mdc-snack-bar-container.snackbar-info {
+  --mat-snack-bar-button-color: #fff;
+  --mdc-snackbar-container-color: rgb(16, 45, 92);
+  --mdc-snackbar-supporting-text-color: #fff;
+  font-family: 'Arial', fantasy;
+}
+
+
+
