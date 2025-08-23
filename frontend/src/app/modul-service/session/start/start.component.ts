@@ -82,4 +82,8 @@ export class SessionStartComponent implements OnInit{
   getCurrentBlockId(): string {
     return this.sessionStateManager.getCurrentBlockId()
   }
+
+  selectSession(selectedSession : Session) {
+    this.selectedSession = selectedSession
+  }
 }

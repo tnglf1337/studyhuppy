@@ -8,7 +8,10 @@
       <div class="pre-session-container">
         <p>Session-Konfiguration auswählen</p>
         <select class="form-select">
-          <option *ngFor="let session of sessions"> {{session.titel}}</option>
+          <option *ngFor="let session of sessions"
+                  (click)="selectSession(session)">
+            {{session.titel}}
+          </option>
         </select>
       </div>
       <div class="block-container blue">
