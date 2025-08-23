@@ -26,7 +26,20 @@ export class BlockComponent implements OnInit{
     const select = event.target as HTMLSelectElement;
     const modulId = select.value;
     this.block.setModulId(modulId)
+
+    let modulName = ""
+
+    for (let i = 0; i < this.module.length; i++) {
+      if(this.module[i].fachId == modulId) {
+        modulName = this.module[i].name
+        break
+      }
+    }
+
+    this.block.setModulName(modulName)
+
     console.log(`[Block ${this.index}] ModulId gesetzt: ${this.block.modulId}`);
+    console.log(`[Block ${this.index}] ModulName gesetzt: ${this.block.modulName}`);
   }
 
   setLernzeitOfBlock(event : Event): void {

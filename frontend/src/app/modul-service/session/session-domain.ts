@@ -1,14 +1,21 @@
 export class Block {
   fachId?: string;
   modulId?: string;
+  modulName: string;
   lernzeitSeconds: number;
   pausezeitSeconds: number;
 
-  constructor(lernzeitSeconds: number, pausezeitSeconds: number, fachId?: string, modulId? : string) {
+
+  constructor(modulName: string, lernzeitSeconds: number, pausezeitSeconds: number, fachId?: string, modulId? : string) {
     this.fachId = fachId;
     this.modulId = modulId;
+    this.modulName = modulName;
     this.lernzeitSeconds = lernzeitSeconds;
     this.pausezeitSeconds = pausezeitSeconds;
+  }
+
+  setModulName(modulName : string) : void {
+    this.modulName = modulName
   }
 
   setModulId(modulId: string): void {

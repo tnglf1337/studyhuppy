@@ -43,7 +43,7 @@ export class SessionCreateComponent implements OnInit{
     let blocks = []
 
     for(let i = 0; i < this.anzahlBloecke; i++) {
-      const block = new Block(10, 10, this.module?.[0]?.fachId);
+      const block = new Block("", 10, 10, this.module?.[0]?.fachId);
       blocks.push(block)
     }
     this.session = new Session("", "", blocks);
