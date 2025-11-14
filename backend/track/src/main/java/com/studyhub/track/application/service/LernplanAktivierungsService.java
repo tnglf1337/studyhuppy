@@ -5,6 +5,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+/**
+ * Class maintains invariant that only on Lernplan of a user is marked as active.
+ */
 @Service
 public class LernplanAktivierungsService {
 
@@ -14,9 +17,14 @@ public class LernplanAktivierungsService {
 		this.lernplanRepository = lernplanRepository;
 	}
 
+	/**
+	 * Deactivates all Lernplan-Entities of a user and then activates the desired Lernplan.
+	 * @param lernplanId ID of the Lernplan to activate
+	 * @param username Username of the user
+	 */
 	@Transactional
-	public void setActiveLernplan(UUID fachId, String username) {
+	public void setActiveLernplan(UUID lernplanId, String username) {
 		lernplanRepository.deactivateAllByUsername(username);
-		lernplanRepository.setIsActiveOfLernplan(fachId, true);
+		lernplanRepository.setIsActiveOfLernplan(lernplanId, true);
 	}
 }

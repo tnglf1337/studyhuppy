@@ -21,6 +21,12 @@ public class ModulEventService {
 		this.dateProvider = dateProvider;
 	}
 
+	/**
+	 * Saves a {@link ModulGelerntEvent} in the database.
+	 * @param secondsLearned the time in seconds that the user learned the module
+	 * @param modulId ID of the module
+	 * @param username Username of the user
+	 */
 	public void saveEvent(int secondsLearned, String modulId, String username) {
 		ModulGelerntEvent event = ModulGelerntEvent.initEvent(UUID.fromString(modulId), secondsLearned, username);
 		if (event.enoughSecondsLearned()) {
@@ -31,6 +37,13 @@ public class ModulEventService {
 		}
 	}
 
+	/**
+	 * Computes a {@code Map<LocalDate, List<ModulStat>} for the frontend to display how much of a module the user learned on a
+	 * specific day.
+	 * @param days The amount of recent days that should be computed
+	 * @param username The username of the user
+	 * @return A {@code Map<LocalDate, List<ModulStat>}
+	 */
 	public Map<LocalDate, List<ModulStat>> getStatisticsForRecentDays(int days, String username) {
 		List<Modul> modules = modulRepository.findByUsername(username);
 		Map<LocalDate, List<ModulStat>> dataMap = new TreeMap<>();
@@ -55,6 +68,11 @@ public class ModulEventService {
 		return dataMap;
 	}
 
+	/**
+	 * Computed the average study time a user studied per day
+	 * @param username
+	 * @return
+	 */
 	public Integer computeAverageStudyTimePerDay(String username) {
 		List<ModulGelerntEvent> allEvents = modulGelerntEvent.getAllByUsername(username);
 		int anzahlEvents = (int) allEvents.stream().map(ModulGelerntEvent::dateGelernt).distinct().count();
@@ -66,6 +84,10 @@ public class ModulEventService {
 		return (int) Math.round((double) sum / anzahlEvents);
 	}
 
+	/**
+	 * Deletes all {@link ModulGelerntEvent} in the database by their modulId
+	 * @param modulId ID of the module whose events should be deleted
+	 */
 	public void deleteAllModulEvents(UUID modulId) {
 		modulGelerntEvent.deleteAllByModulId(modulId);
 	}
