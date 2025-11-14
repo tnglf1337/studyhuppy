@@ -1,5 +1,6 @@
 package com.studyhub.track.application.service;
 
+import com.studyhub.track.domain.model.lernplan.LernplanRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

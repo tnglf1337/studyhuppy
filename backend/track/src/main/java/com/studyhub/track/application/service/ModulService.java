@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.IntStream;
@@ -244,10 +244,20 @@ public class ModulService {
 		return res;
 	}
 
-	public void addSecondsToModul(UUID uuid, int secondsToAdd, String username) {
+	public void addSecondsToModul(UUID uuid, LocalTime time, String username) {
 		try {
-			updateSeconds(uuid, secondsToAdd);
-			modulEventService.saveEvent(secondsToAdd, uuid.toString(), username);
+			int seconds = localTimeToSeconds(time);
+			updateSeconds(uuid, seconds);
+			modulEventService.saveEvent(seconds, uuid.toString(), username);
+		} catch(Exception e) {
+			log.error("Error saving event", e);
+		}
+	}
+
+	public void addSecondsToModul(UUID uuid, int seconds, String username) {
+		try {
+			updateSeconds(uuid, seconds);
+			modulEventService.saveEvent(seconds, uuid.toString(), username);
 		} catch(Exception e) {
 			log.error("Error saving event", e);
 		}
@@ -275,5 +285,9 @@ public class ModulService {
 		}
 
 		return statBuilder.build();
+	}
+
+	private Integer localTimeToSeconds(LocalTime time) {
+		return time.getHour() * 3600 + time.getMinute() * 60;
 	}
 }

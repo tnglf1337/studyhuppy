@@ -119,8 +119,6 @@ public class SessionBewertungService {
 							return averagesDto;
 						}
 				));
-
-		System.out.println(groupedAverages);
 		return groupedAverages;
 	}
 }

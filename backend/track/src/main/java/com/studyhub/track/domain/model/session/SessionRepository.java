@@ -1,6 +1,5 @@
-package com.studyhub.track.application.service;
+package com.studyhub.track.domain.model.session;
 
-import com.studyhub.track.domain.model.session.Session;
 import java.util.List;
 import java.util.UUID;
 

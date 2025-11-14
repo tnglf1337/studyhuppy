@@ -117,6 +117,7 @@ export class ModulDetailsComponent implements  OnInit{
     this.addTimeForm.patchValue({modulId: this.modulId})
     if(this.addTimeForm.valid) {
       let data = this.addTimeForm.value
+      console.log(data)
       this.service.postSecondsToAdd(data).subscribe({
         next: () => {
           this.log.debug("time data successfully sent")

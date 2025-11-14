@@ -2,7 +2,7 @@ package com.studyhub.track.service;
 
 import com.studyhub.track.adapter.db.session.SessionDao;
 import com.studyhub.track.adapter.db.session.SessionRepositoryImpl;
-import com.studyhub.track.application.service.SessionRepository;
+import com.studyhub.track.domain.model.session.SessionRepository;
 import com.studyhub.track.application.service.SessionService;
 import com.studyhub.track.domain.model.session.Session;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,7 +1,7 @@
 package com.studyhub.track.service;
 
 import com.studyhub.track.application.service.LernplanAktivierungsService;
-import com.studyhub.track.application.service.LernplanRepository;
+import com.studyhub.track.domain.model.lernplan.LernplanRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -3,8 +3,10 @@ package com.studyhub.track.application.service;
 import com.studyhub.track.application.service.dto.LernplanWochenuebersicht;
 import com.studyhub.track.application.service.dto.LernplanTagesuebersicht;
 import com.studyhub.track.domain.model.lernplan.Lernplan;
+import com.studyhub.track.domain.model.lernplan.LernplanRepository;
 import com.studyhub.track.domain.model.lernplan.Tag;
 import com.studyhub.track.domain.model.session.Session;
+import com.studyhub.track.domain.model.session.SessionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

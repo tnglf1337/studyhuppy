@@ -4,11 +4,11 @@ import com.studyhub.track.application.service.dto.SessionInfoDto;
 import com.studyhub.track.application.service.dto.SessionRequest;
 import com.studyhub.track.domain.model.session.Block;
 import com.studyhub.track.domain.model.session.Session;
+import com.studyhub.track.domain.model.session.SessionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class SessionService {

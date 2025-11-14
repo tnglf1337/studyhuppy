@@ -1,8 +1,8 @@
 package com.studyhub.track.service;
 
-import com.studyhub.track.application.service.LernplanRepository;
+import com.studyhub.track.domain.model.lernplan.LernplanRepository;
 import com.studyhub.track.application.service.LernplanService;
-import com.studyhub.track.application.service.SessionRepository;
+import com.studyhub.track.domain.model.session.SessionRepository;
 import com.studyhub.track.application.service.dto.LernplanWochenuebersicht;
 import com.studyhub.track.domain.model.lernplan.Lernplan;
 import com.studyhub.track.domain.model.session.Session;

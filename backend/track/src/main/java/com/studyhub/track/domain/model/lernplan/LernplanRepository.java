@@ -1,6 +1,4 @@
-package com.studyhub.track.application.service;
-
-import com.studyhub.track.domain.model.lernplan.Lernplan;
+package com.studyhub.track.domain.model.lernplan;
 
 import java.util.List;
 import java.util.UUID;

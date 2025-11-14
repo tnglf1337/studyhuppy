@@ -29,7 +29,7 @@ class ArchitectureTest {
 	void testOnionArchitecture() {
 		ArchRule rule = onionArchitecture()
 				.domainModels("..domain.model..")
-				.domainServices("..domain.model..")
+				.domainServices("..domain.service..")
 				.applicationServices("..application.service..")
 				.adapter("adapter", "..adapter..");
 		rule.check(classesImport);

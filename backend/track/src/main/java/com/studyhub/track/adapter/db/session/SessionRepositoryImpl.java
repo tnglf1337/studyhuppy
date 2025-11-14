@@ -1,7 +1,6 @@
 package com.studyhub.track.adapter.db.session;
 
-import com.studyhub.track.adapter.db.modul.ModulDto;
-import com.studyhub.track.application.service.SessionRepository;
+import com.studyhub.track.domain.model.session.SessionRepository;
 import com.studyhub.track.domain.model.session.Session;
 import org.springframework.stereotype.Repository;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.studyhub.track.adapter.db.lernplan;
 
-import com.studyhub.track.application.service.LernplanRepository;
+import com.studyhub.track.domain.model.lernplan.LernplanRepository;
 import com.studyhub.track.domain.model.lernplan.Lernplan;
 import org.springframework.stereotype.Repository;
 import java.util.List;
