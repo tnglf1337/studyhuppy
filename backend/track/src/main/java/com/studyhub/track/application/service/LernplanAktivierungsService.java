@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 /**
- * Class maintains invariant that only on Lernplan of a user is marked as active.
+ * Class maintains invariant that only one Lernplan of a user is marked as active.
  */
 @Service
 public class LernplanAktivierungsService {
