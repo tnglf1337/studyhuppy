@@ -8,7 +8,6 @@ import com.studyhub.track.application.JWTService;
 import com.studyhub.track.adapter.db.modul.ModulDto;
 import com.studyhub.track.adapter.db.modul.ModulMapper;
 import com.studyhub.track.adapter.web.*;
-import com.studyhub.track.adapter.web.controller.request.dto.AddTimeRequest;
 import com.studyhub.track.application.service.ModulEventService;
 import com.studyhub.track.application.service.ModulService;
 import com.studyhub.track.application.service.ModulUpdateService;
@@ -22,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -93,7 +91,7 @@ public class ModulApiController {
 	@AngularApi
 	@GetMapping("/module-name")
 	public ResponseEntity<String> getModulName(String modulFachId) {
-		String modulName = modulService.findModulNameByFachid(UUID.fromString(modulFachId));
+		String modulName = modulService.findModulNameByFachId(UUID.fromString(modulFachId));
 		return ResponseEntity.ok(modulName);
 	}
 
@@ -164,7 +162,7 @@ public class ModulApiController {
 	@AngularApi
 	@PutMapping("/change-active")
 	public ResponseEntity<Void> activate(@RequestParam("fachId")  String fachId) {
-		modulService.changeActivity(UUID.fromString(fachId));
+		modulService.toggleModulActivity(UUID.fromString(fachId));
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 

@@ -211,7 +211,7 @@ class ModulTest {
 	void test_19() {
 		Modul m = ModulMother.initActiveModul();
 
-		m.changeActivity();
+		m.toggleActivity();
 
 		assertFalse(m.isActive());
 	}
@@ -221,7 +221,7 @@ class ModulTest {
 	void test_20() {
 		Modul m = ModulMother.initNotActiveModul();
 
-		m.changeActivity();
+		m.toggleActivity();
 
 		assertTrue(m.isActive());
 	}

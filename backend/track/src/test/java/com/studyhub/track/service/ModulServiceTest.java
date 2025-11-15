@@ -10,7 +10,6 @@ import java.util.*;
 import static com.studyhub.track.util.ModulMother.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 class ModulServiceTest {
@@ -188,7 +187,7 @@ class ModulServiceTest {
 		when(modulRepository.findByUuid(modulid)).thenReturn(modul);
 		when(modulRepository.save(any(Modul.class))).thenReturn(modul);
 
-		modulService.changeActivity(modulid);
+		modulService.toggleModulActivity(modulid);
 
 		assertThat(modul.isActive()).isTrue();
 		verify(modulRepository, times(1)).findByUuid(modulid);
