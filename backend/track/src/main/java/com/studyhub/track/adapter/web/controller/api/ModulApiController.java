@@ -11,6 +11,7 @@ import com.studyhub.track.adapter.web.*;
 import com.studyhub.track.adapter.web.controller.request.dto.AddTimeRequest;
 import com.studyhub.track.application.service.ModulEventService;
 import com.studyhub.track.application.service.ModulService;
+import com.studyhub.track.application.service.ModulUpdateService;
 import com.studyhub.track.application.service.dto.ModulSelectDto;
 import com.studyhub.track.application.service.dto.NeuerModulterminRequest;
 import com.studyhub.track.domain.model.modul.Modul;
@@ -33,13 +34,15 @@ public class ModulApiController {
 	private int maxModule;
 
 	private final ModulService modulService;
+	private final ModulUpdateService modulUpdateService;
 	private final ModulEventService modulEventService;
 	private final AuthenticationService authenticationService;
 	private final JWTService jwtService;
 	private final PrometheusMetrics metrics;
 
-	public ModulApiController(ModulService service, ModulEventService modulEventService, AuthenticationService authenticationService , JWTService jwtService, PrometheusMetrics metrics) {
+	public ModulApiController(ModulService service, ModulUpdateService modulUpdateService, ModulEventService modulEventService, AuthenticationService authenticationService , JWTService jwtService, PrometheusMetrics metrics) {
 		this.modulService = service;
+		this.modulUpdateService = modulUpdateService;
 		this.modulEventService = modulEventService;
         this.authenticationService = authenticationService;
         this.jwtService = jwtService;
@@ -51,9 +54,10 @@ public class ModulApiController {
 	public ResponseEntity<Void> updateSeconds(@RequestBody TimerRequest timerRequest, HttpServletRequest httpServletRequest) {
 		try {
 			String username = jwtService.extractUsernameFromHeader(httpServletRequest);
-			//modulService.updateSeconds(UUID.fromString(timerRequest.modulId()), seconds);
-			//modulEventService.saveEvent(seconds, timerRequest.modulId(), username);
-			modulService.addSecondsToModul(UUID.fromString(timerRequest.modulId()), timerRequest.toSeconds(), username);
+			UUID modulId = UUID.fromString(timerRequest.modulId());
+			int secondsLearned = timerRequest.toSeconds();
+			modulUpdateService.updateSeconds(modulId, secondsLearned);
+			modulEventService.saveEvent(secondsLearned, modulId, username);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
