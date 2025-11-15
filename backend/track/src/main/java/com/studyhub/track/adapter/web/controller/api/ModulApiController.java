@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -69,7 +70,10 @@ public class ModulApiController {
 	@PostMapping("/add-seconds")
 	public ResponseEntity<Void> addSeconds(@RequestBody AddSecondsRequest request, HttpServletRequest httpServletRequest) {
 		String username = jwtService.extractUsernameFromHeader(httpServletRequest);
-		modulService.addSecondsToModul(request.modulId(), request.time(), username);
+		UUID modulId = request.modulId();
+		LocalTime time = request.time();
+		int secondsLearned = modulUpdateService.updateSecondsManually(modulId, time);
+		modulEventService.saveEvent(secondsLearned, modulId, username);
 		return ResponseEntity.ok().build();
 	}
 
@@ -161,17 +165,6 @@ public class ModulApiController {
 	@PutMapping("/change-active")
 	public ResponseEntity<Void> activate(@RequestParam("fachId")  String fachId) {
 		modulService.changeActivity(UUID.fromString(fachId));
-		return ResponseEntity.status(HttpStatus.OK).build();
-	}
-
-	@AngularApi
-	@PostMapping("/add-time")
-	public ResponseEntity<Void> addTime(@RequestBody AddTimeRequest req) {
-		try {
-			modulService.addTime(UUID.fromString(req.getFachId()), req.getTime());
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
