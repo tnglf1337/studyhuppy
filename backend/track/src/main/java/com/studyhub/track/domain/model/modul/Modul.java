@@ -87,4 +87,9 @@ public class Modul {
 	public void resetSecondsLearned() {
 		this.secondsLearned = 0;
 	}
+
+	public void addSeconds(int secondsToAdd) {
+		if(secondsToAdd < 0) throw new IllegalArgumentException("seconds to add must be non-negative");
+		this.secondsLearned += secondsToAdd;
+	}
 }

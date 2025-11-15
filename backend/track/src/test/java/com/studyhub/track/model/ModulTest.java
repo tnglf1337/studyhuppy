@@ -235,4 +235,25 @@ class ModulTest {
 
 		assertThat(m.getSecondsLearned()).isZero();
 	}
+
+	@Test
+	@DisplayName("Sekunden werden einem Modul hinzugefügt")
+	void test_22() {
+		Modul m = ModulMother.initModul();
+		int secondsToAdd = 5000;
+
+		m.addSeconds(secondsToAdd);
+
+		assertThat(m.getSecondsLearned()).isEqualTo(6000);
+	}
+
+	@Test
+	@DisplayName("Negative Sekunden werden einem Modul nicht hinzugefügt und es wird eine Exception geworfen")
+	void test_23() {
+		Modul m = ModulMother.initModul();
+		int secondsToAdd = -5000;
+
+		assertThrows(IllegalArgumentException.class, () -> m.addSeconds(secondsToAdd));
+		assertThat(m.getSecondsLearned()).isEqualTo(1000);
+	}
 }
