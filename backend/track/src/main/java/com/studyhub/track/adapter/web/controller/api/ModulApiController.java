@@ -71,8 +71,8 @@ public class ModulApiController {
 	public ResponseEntity<Void> addSeconds(@RequestBody AddSecondsRequest request, HttpServletRequest httpServletRequest) {
 		String username = jwtService.extractUsernameFromHeader(httpServletRequest);
 		UUID modulId = request.modulId();
-		LocalTime time = request.time();
-		int secondsLearned = modulUpdateService.updateSecondsManually(modulId, time);
+		int secondsLearned = request.localTimeToSeconds();
+		modulUpdateService.updateSeconds(modulId, secondsLearned);
 		modulEventService.saveEvent(secondsLearned, modulId, username);
 		return ResponseEntity.ok().build();
 	}

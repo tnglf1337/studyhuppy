@@ -30,14 +30,4 @@ public class ModulUpdateService {
 
 		log.info("updated modul with id:%s to seconds=%s".formatted(fachId.toString(), String.valueOf(seconds)));
 	}
-
-	public int updateSecondsManually(UUID modulId, LocalTime time) {
-		int seconds = localTimeToSeconds(time);
-		updateSeconds(modulId, seconds); // TODO fix problem
-		return seconds;
-	}
-
-	private Integer localTimeToSeconds(LocalTime time) {
-		return time.getHour() * 3600 + time.getMinute() * 60;
-	}
 }
