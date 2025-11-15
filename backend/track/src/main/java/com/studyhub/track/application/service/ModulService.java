@@ -87,14 +87,6 @@ public class ModulService {
 		log.info("deactivated modul id:%s".formatted(fachId.toString()));
 	}
 
-	public void addTime(UUID fachId, String time) throws ModulSecondsUpdateException {
-		TimeConverter tc = new TimeConverter();
-		int addSeconds = tc.timeToSeconds(time);
-		int alreadyLearned = modulRepository.findSecondsById(fachId);
-		int newSeconds = addSeconds + alreadyLearned;
-		//updateSeconds(fachId, newSeconds);
-	}
-
 	public int getSecondsForId(UUID fachId) {
 		return modulRepository.findSecondsById(fachId);
 	}
@@ -236,25 +228,6 @@ public class ModulService {
 			res.add(new ModulSelectDto(m.getFachId(), m.getName()));
 		}
 		return res;
-	}
-
-	public void addSecondsToModul(UUID uuid, LocalTime time, String username) {
-		try {
-			int seconds = localTimeToSeconds(time);
-			//updateSeconds(uuid, seconds);
-			modulEventService.saveEvent(seconds, uuid, username);
-		} catch(Exception e) {
-			log.error("Error saving event", e);
-		}
-	}
-
-	public void addSecondsToModul(UUID uuid, int seconds, String username) {
-		try {
-			//updateSeconds(uuid, seconds);
-			modulEventService.saveEvent(seconds, uuid, username);
-		} catch(Exception e) {
-			log.error("Error saving event", e);
-		}
 	}
 
 	public GeneralStatisticsDto getGeneralStatistics(String username) {
