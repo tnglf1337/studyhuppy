@@ -80,12 +80,6 @@ public class ModulRepositoryImpl implements ModulRepository {
 	}
 
 	@Override
-	public int updateSecondsByUuid(UUID fachid, int seconds) {
-
-		return modulDao.updateSecondsByUuid(fachid, seconds);
-	}
-
-	@Override
 	public List<Modul> findByActiveIsTrue() {
 		return modulDao.findByActiveIsTrue().stream().map(ModulMapper::toModul).toList();
 	}

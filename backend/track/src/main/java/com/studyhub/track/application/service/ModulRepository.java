@@ -21,7 +21,6 @@ public interface ModulRepository {
 	String findByMaxSeconds(String username);
 	boolean isModulDbHealthy();
 	int deleteByUuid(UUID fachId);
-	int updateSecondsByUuid(UUID fachid, int seconds);
 	void setActive(UUID fachId, boolean active);
 	boolean addModultermin(UUID fachId, Modultermin modultermin);
 	boolean deleteModultermin(UUID fachId, Modultermin modultermin);

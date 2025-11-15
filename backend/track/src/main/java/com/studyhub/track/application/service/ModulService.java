@@ -43,12 +43,6 @@ public class ModulService {
 		return modulRepository.findAll();
 	}
 
-	public void updateSeconds(UUID fachId, int seconds) throws ModulSecondsUpdateException {
-		int res = modulRepository.updateSecondsByUuid(fachId, seconds);
-		if (res == 0) throw new ModulSecondsUpdateException("could not update seconds for modul with id: %s".formatted(fachId.toString()));
-		log.info("updated modul with id:%s to seconds=%s".formatted(fachId.toString(), String.valueOf(seconds)));
-	}
-
 	/**
 	 * Löscht im gesamten System alle Datensätze die mit modulId assoziiert sind.
 	 *
@@ -98,7 +92,7 @@ public class ModulService {
 		int addSeconds = tc.timeToSeconds(time);
 		int alreadyLearned = modulRepository.findSecondsById(fachId);
 		int newSeconds = addSeconds + alreadyLearned;
-		updateSeconds(fachId, newSeconds);
+		//updateSeconds(fachId, newSeconds);
 	}
 
 	public int getSecondsForId(UUID fachId) {
@@ -247,8 +241,8 @@ public class ModulService {
 	public void addSecondsToModul(UUID uuid, LocalTime time, String username) {
 		try {
 			int seconds = localTimeToSeconds(time);
-			updateSeconds(uuid, seconds);
-			modulEventService.saveEvent(seconds, uuid.toString(), username);
+			//updateSeconds(uuid, seconds);
+			modulEventService.saveEvent(seconds, uuid, username);
 		} catch(Exception e) {
 			log.error("Error saving event", e);
 		}
@@ -256,8 +250,8 @@ public class ModulService {
 
 	public void addSecondsToModul(UUID uuid, int seconds, String username) {
 		try {
-			updateSeconds(uuid, seconds);
-			modulEventService.saveEvent(seconds, uuid.toString(), username);
+			//updateSeconds(uuid, seconds);
+			modulEventService.saveEvent(seconds, uuid, username);
 		} catch(Exception e) {
 			log.error("Error saving event", e);
 		}
