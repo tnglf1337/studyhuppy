@@ -46,55 +46,81 @@ public class ModulService {
 	/**
 	 * Löscht im gesamten System alle Datensätze die mit modulId assoziiert sind.
 	 *
-	 * @param modelId Fach-Id des zu löschenden Moduls
+	 * @param fachId Fach-Id des zu löschenden Moduls
 	 * @param username Username des Benutzers
 	 * @return true, nachdem das Modul existierte und alle anderen Datensätze gelöscht wurden. false, wenn das Modul nicht existiert.
 	 */
 	@Transactional
-	public boolean deleteModul(UUID modelId, String username) {
-		int success = modulRepository.deleteByUuid(modelId);
+	public boolean deleteModul(UUID fachId, String username) {
+		int success = modulRepository.deleteByUuid(fachId);
 		if (success == 0) {
 			return false;
 		}
-		sessionService.deleteModuleFromBlocks(modelId, username);
-		modulEventService.deleteAllModulEvents(modelId);
-		log.warn("deleted modul with id:%s".formatted(modelId.toString()));
+		sessionService.deleteModuleFromBlocks(fachId, username);
+		modulEventService.deleteAllModulEvents(fachId);
+		log.warn("deleted modul with id:%s".formatted(fachId.toString()));
 		return true;
 	}
 
-	public void resetSecondsLearnedOfModul(UUID modulId) {
-		Modul m = modulRepository.findByUuid(modulId);
+	/**
+	 * Resets the seconds learned of a module to 0.
+	 * @param fachId The id of the module to reset.
+	 */
+	@Transactional
+	public void resetSecondsLearnedOfModul(UUID fachId) {
+		Modul m = modulRepository.findByUuid(fachId);
 
 		if(m == null) return;
 
 		m.resetSecondsLearned();
 		modulRepository.save(m);
-		log.info("resetted secondsLearned to 0 of modul with id: '%s'".formatted(modulId.toString()));
+		log.info("Resetted secondsLearned to 0 of modul with id: '%s'".formatted(fachId.toString()));
 	}
 
-	public List<Modul> findActiveModuleByUsername(boolean active, String username) {
-		return modulRepository.findActiveModuleByUsername(active, username);
+	/**
+	 * Finds all modules of a user by their active status.
+	 * @param isActive True for active modules, false for inactive modules.
+	 * @param username The username of the user.
+	 * @return List of modules matching the criteria.
+	 */
+	public List<Modul> findActiveModuleByUsername(boolean isActive, String username) {
+		return modulRepository.findActiveModuleByUsername(isActive, username);
 	}
 
-	public void changeActivity(UUID fachId) {
+	/**
+	 * Toggles the activity status of a module.
+	 * @param fachId The id of the module to toggle.
+	 */
+	@Transactional
+	public void toggleModulActivity(UUID fachId) {
 		Modul m = modulRepository.findByUuid(fachId);
-		m.changeActivity();
+		m.toggleActivity();
 		modulRepository.save(m);
 	}
 
-	public void deactivateModul(UUID fachId) {
-		modulRepository.setActive(fachId, false);
-		log.info("deactivated modul id:%s".formatted(fachId.toString()));
-	}
-
+	/**
+	 * Finds the seconds learned of a module by its id.
+	 * @param fachId The id of the module.
+	 * @return The seconds learned of the desired module.
+	 */
 	public int getSecondsForId(UUID fachId) {
 		return modulRepository.findSecondsById(fachId);
 	}
 
-	public String findModulNameByFachid(UUID fachId) {
+	/**
+	 * Finds the name of a module by its id.
+	 * @param fachId The id of the module.
+	 * @return The name of the desired module.
+	 */
+	public String findModulNameByFachId(UUID fachId) {
 		return modulRepository.findByUuid(fachId).getName();
 	}
 
+	/**
+	 * Get total study time for a user.
+	 * @param username The username of the user.
+	 * @return Total study time in seconds.
+	 */
 	public Integer getTotalStudyTimeForUser(String username) {
 		Integer totalStudyTime = modulRepository.getTotalStudyTime(username);
 
@@ -104,6 +130,11 @@ public class ModulService {
 		return totalStudyTime;
 	}
 
+	/**
+	 * Get total study time per semester for a user.
+	 * @param username The username of the user.
+	 * @return Map of fachsemester to total study time in seconds.
+	 */
 	public Map<Integer, Integer> getTotalStudyTimePerFachSemester(String username) {
 		List<Modul> allModule = modulRepository.findByUsername(username);
 		Set<Integer> fachsemesterMap = new HashSet<>();
@@ -129,22 +160,47 @@ public class ModulService {
 		return res;
 	}
 
+	/**
+	 * Counts the number of active modules for a user.
+	 * @param username The username of the user.
+	 * @return Number of active modules.
+	 */
 	public Integer countActiveModules(String username) {
 		return modulRepository.countActiveModules(username);
 	}
 
+	/**
+	 * Counts the number of not active modules for a user.
+	 * @param username The username of the user.
+	 * @return Number of not active modules.
+	 */
 	public Integer countNotActiveModules(String username) {
 		return modulRepository.countNotActiveModules(username);
 	}
 
+	/**
+	 * Finds the module with the maximum seconds learned for a user.
+	 * @param username The username of the user.
+	 * @return Name of the module with maximum seconds learned.
+	 */
 	public String findModulWithMaxSeconds(String username) {
 		return modulRepository.findByMaxSeconds(username);
 	}
 
+	/**
+	 * Finds the module with the minimum seconds learned for a user.
+	 * @param username The username of the user.
+	 * @return Name of the module with minimum seconds learned.
+	 */
 	public String findModulWithMinSeconds(String username) {
 		return modulRepository.findByMinSeconds(username);
 	}
 
+	/**
+	 * Gets a map of module IDs to module names for a user.
+	 * @param username The username of the user.
+	 * @return Map of module ids to module names.
+	 */
 	public Map<UUID, String> getModuleMap(String username) {
 		List<Modul> all = modulRepository.findByUsername(username);
 		Map<UUID, String> map = new HashMap<>();
@@ -156,12 +212,20 @@ public class ModulService {
 		return map;
 	}
 
+	/**
+	 * Checks if the module database is healthy.
+	 * @return True if healthy, false otherwise.
+	 */
 	public boolean isModulDbHealthy() {
 		log.info("fetching database health status");
 		return modulRepository.isModulDbHealthy();
 	}
 
-
+	/**
+	 * Formats a date string to German format.
+	 * @param zeitString Date string in "yyyy-MM-dd HH:mm:ss" format.
+	 * @return Formatted date string in "dd.MM.yyyy, HH:mm" format.
+	 */
 	public String dateStringGer(String zeitString) {
 		try {
 			DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -175,27 +239,53 @@ public class ModulService {
 		}
 	}
 
+	/**
+	 * Finds a module by its fachId.
+	 * @param uuid
+	 * @return
+	 */
 	public Modul findByFachId(UUID uuid) {
 		return modulRepository.findByUuid(uuid);
 	}
 
+	/**
+	 * Finds all modules for a given username.
+	 * @param username The username of the user.
+	 * @return List of modules for the user.
+	 */
 	public List<Modul> findAllByUsername(String username) {
 		return modulRepository.findByUsername(username);
 	}
 
+	/**
+	 * Checks if a new module can be created for a user based on a limit.
+	 * @param username The username of the user.
+	 * @param limit The maximum number of modules allowed.
+	 * @return True if a new module can be created, false otherwise.
+	 */
 	public boolean modulCanBeCreated(String username, int limit) {
 		List<Modul> module = modulRepository.findByUsername(username);
         return module.size() < limit;
     }
 
-	public List<Modultermin> getModultermineByModulId(UUID modulId) {
-		Modul m = findByFachId(modulId);
+	/**
+	 * Gets all module terms for a given module ID.
+	 * @param fachId The fachId of the module.
+	 * @return List of module terms.
+	 */
+	public List<Modultermin> getModultermineByModulId(UUID fachId) {
+		Modul m = findByFachId(fachId);
 		if (m == null) {
 			return Collections.emptyList();
 		}
 		return m.getModultermine();
 	}
 
+	/**
+	 * Adds a new module term for a given module and saves it.
+	 * @param req The request containing module term details.
+	 */
+	@Transactional
 	public void saveNewModultermin(NeuerModulterminRequest req) {
 		Modultermin termin = req.toModultermin();
 		UUID modulId = req.getModulId();
@@ -204,6 +294,11 @@ public class ModulService {
 		modulRepository.save(modul);
 	}
 
+	/**
+	 * Computes a map of fachsemester to list of modules for a user.
+	 * @param username The username of the user.
+	 * @return Map of fachsemester to list of modules.
+	 */
 	public Map<Integer, List<Modul>> getFachsemesterModuleMap(String username) {
 		List<Modul> module = modulRepository.findActiveModuleByUsername(true, username);
 		Map<Integer, List<Modul>> moduleMap = new TreeMap<>(Comparator.reverseOrder());
@@ -230,6 +325,11 @@ public class ModulService {
 		return res;
 	}
 
+	/**
+	 * Gets general statistics for a user.
+	 * @param username The username of the user.
+	 * @return General statistics DTO.
+	 */
 	public GeneralStatisticsDto getGeneralStatistics(String username) {
 		GeneralStatisticsDtoBuilder statBuilder = new GeneralStatisticsDtoBuilder().builder();
 
@@ -252,9 +352,5 @@ public class ModulService {
 		}
 
 		return statBuilder.build();
-	}
-
-	private Integer localTimeToSeconds(LocalTime time) {
-		return time.getHour() * 3600 + time.getMinute() * 60;
 	}
 }
