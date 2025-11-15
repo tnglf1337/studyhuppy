@@ -111,7 +111,7 @@ class ModulEventServiceTest {
 	@ValueSource(ints = {4, 0, -1000})
 	void test_05(int secondsLearned) {
 		assertThrows(IllegalStateException.class, () -> {
-			service.saveEvent(secondsLearned, UUID.randomUUID().toString(), "timo123");
+			service.saveEvent(secondsLearned, UUID.randomUUID(), "timo123");
 		});
 	}
 
@@ -120,7 +120,7 @@ class ModulEventServiceTest {
 	void test_06() {
 		int secondsLearned = 5;
 
-		service.saveEvent(secondsLearned, UUID.randomUUID().toString(), "timo123");
+		service.saveEvent(secondsLearned, UUID.randomUUID(), "timo123");
 
 		verify(eventRepo, times(1)).save(any(ModulGelerntEvent.class));
 	}

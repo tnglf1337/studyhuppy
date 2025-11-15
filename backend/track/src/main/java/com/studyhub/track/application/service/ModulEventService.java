@@ -27,8 +27,8 @@ public class ModulEventService {
 	 * @param modulId ID of the module
 	 * @param username Username of the user
 	 */
-	public void saveEvent(int secondsLearned, String modulId, String username) {
-		ModulGelerntEvent event = ModulGelerntEvent.initEvent(UUID.fromString(modulId), secondsLearned, username);
+	public void saveEvent(int secondsLearned, UUID modulId, String username) {
+		ModulGelerntEvent event = ModulGelerntEvent.initEvent(modulId, secondsLearned, username);
 		if (event.enoughSecondsLearned()) {
 			modulGelerntEvent.save(event);
 			logger.info("Saved ModulGelerntEvent: {}", event);
