@@ -3,15 +3,17 @@ package com.studyhub.track.application.service;
 import com.studyhub.track.domain.model.modul.Modul;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
 import java.util.UUID;
 
 @Service
 public class ModulUpdateService {
 
-	private final Logger log = LoggerFactory.getLogger(ModulService.class);
+	private final Logger log = LoggerFactory.getLogger(ModulUpdateService.class);
 	private final ModulRepository modulRepository;
 
 	public ModulUpdateService(ModulRepository modulRepository) {
@@ -29,4 +31,13 @@ public class ModulUpdateService {
 		log.info("updated modul with id:%s to seconds=%s".formatted(fachId.toString(), String.valueOf(seconds)));
 	}
 
+	public int updateSecondsManually(UUID modulId, LocalTime time) {
+		int seconds = localTimeToSeconds(time);
+		updateSeconds(modulId, seconds); // TODO fix problem
+		return seconds;
+	}
+
+	private Integer localTimeToSeconds(LocalTime time) {
+		return time.getHour() * 3600 + time.getMinute() * 60;
+	}
 }
