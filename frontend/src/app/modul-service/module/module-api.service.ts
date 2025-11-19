@@ -76,7 +76,7 @@ export class ModuleApiService {
   putAktivStatus(fachId: string) : Observable<void> {
     this.log.debug(`Try changing active status for modul id='${fachId}'...`)
     const headers = this.headerService.createAuthHeader()
-    return this.http.put<void>(this.MODUL_BASE_API + '/change-active', {
+    return this.http.put<void>(this.MODUL_BASE_API + '/change-active', null,  {
       headers,
       params: {
         fachId: fachId}
