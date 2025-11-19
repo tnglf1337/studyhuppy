@@ -19,7 +19,9 @@ export class ModuleComponent implements OnInit{
   service = inject(ModuleApiService)
   log : LoggingService = new LoggingService("ModuleComponent", "modul-service")
   pipe : TimeFormatPipe = new TimeFormatPipe()
-  module: { [key: number]: Modul[] } = {}
+  allModule : { [key: number]: Modul[] } = {}
+  displayedModule :  { [key: number]: Modul[] } = {}
+  deactivatedAreVisible!: boolean
 
   delta = 0 // Differenz zwischen startDate und die aktuelle Uhrzeit
   currentModulSecondsLearned = 0
@@ -30,17 +32,23 @@ export class ModuleComponent implements OnInit{
   openPanels: boolean[] = []
 
   ngOnInit(): void {
-    this.service.getModuleByFachsemester().subscribe({
+    this.service.getAllModuleByFachsemester().subscribe({
       next: (data) => {
-        this.module = data
+        this.allModule = data
         this.isLoading = false
         this.initDisabledBtn()
         this.initOpenPanels()
+        this.setDisplayedModule()
       },
       error: (err) => {
         this.log.error(err)
       }
     });
+    if (!localStorage.getItem("deactivatedAreVisible")) {
+      localStorage.setItem("deactivatedAreVisible", "false")
+    } else {
+      this.deactivatedAreVisible = localStorage.getItem("deactivatedAreVisible") === "true"
+    }
   }
 
   updateSecondsOnModulUI(fachId: string, seconds: number): void {
@@ -116,7 +124,7 @@ export class ModuleComponent implements OnInit{
   }
 
   getModuleForSemester(semester: number): Modul[] {
-    return this.module[semester] || [];
+    return this.displayedModule[semester] || [];
   }
 
   showAccordionElement(i : number) {
@@ -125,7 +133,7 @@ export class ModuleComponent implements OnInit{
 
   initOpenPanels() {
     this.openPanels.push(true)
-    for (let i = 1; i < Object.keys(this.module).length; i++) {
+    for (let i = 1; i < Object.keys(this.allModule).length; i++) {
       this.openPanels.push(false)
     }
     //this.log.debug("Initialized openPanels: " + this.openPanels)
@@ -133,13 +141,13 @@ export class ModuleComponent implements OnInit{
 
   initDisabledBtn() {
     //Sortieren, damit hohe Fachsemester oben angezeigt werden
-    const sortedKeys = Object.keys(this.module)
+    const sortedKeys = Object.keys(this.allModule)
       .map(key => parseInt(key, 10))
       .sort((a, b) => b - a);
 
     for (const key of sortedKeys) {
-      if (this.module.hasOwnProperty(key)) {
-        const moduleListe = this.module[key];
+      if (this.allModule.hasOwnProperty(key)) {
+        const moduleListe = this.allModule[key];
         let fachSemesterBtn = Array(moduleListe.length).fill(false)
         this.disabledBtn.push(fachSemesterBtn)
       }
@@ -167,4 +175,37 @@ export class ModuleComponent implements OnInit{
   }
 
   protected readonly Object = Object;
+
+  changeVisibility() {
+    let currentVisibility = localStorage.getItem("deactivatedAreVisible") === "true";
+    currentVisibility = !currentVisibility;
+    localStorage.setItem("deactivatedAreVisible", String(currentVisibility));
+    this.ngOnInit()
+  }
+
+  setDisplayedModule() {
+    let res :  { [key: number]: Modul[] } = {}
+
+    if (this.deactivatedAreVisible) {
+      for (const [semester, moduleArray] of Object.entries(this.allModule)) {
+        const sem = Number(semester);
+        res[sem] = []
+        for (const modul of moduleArray) {
+          res[sem].push(modul)
+        }
+      }
+    } else {
+      for (const [semester, moduleArray] of Object.entries(this.allModule)) {
+        const sem = Number(semester);
+        res[sem] = []
+        for (const modul of moduleArray) {
+          if(modul.active) {
+            res[sem].push(modul)
+          }
+        }
+      }
+    }
+
+    this.displayedModule = res
+  }
 }

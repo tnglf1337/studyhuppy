@@ -1,6 +1,13 @@
 :host {
   --modul-card-border-radius: 10px;
   --modul-name-font-size: 18px;
+
+  --gray: #b7b7b7;
+}
+
+#modul-section {
+  display: flex;
+  flex-direction: column;
 }
 
 .modul-container {
@@ -146,4 +153,24 @@
 
 .shd {
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+#modul-visibility-btn {
+  margin: 10px;
+  background-color: transparent;
+  color: var(--gray);
+  border: 2px solid var(--gray);
+  border-radius: 5px;
+}
+
+#modul-visibility-btn:hover {
+  background-color: #eeeeee;
+}
+
+.svg-eye-container {
+  margin: 5px;
+}
+
+.eye-svg {
+  fill: var(--gray);
 }
