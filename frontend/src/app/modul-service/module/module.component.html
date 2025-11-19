@@ -31,24 +31,24 @@
       </div>
       <div class="modul-container">
         @for (fachsemester of Object.keys(displayedModule).reverse(); track fachsemester; let i = $index) {
-
-          <section [attr.aria-labelledby]="'fachsemester-' + i">
-            <button class="accordion" (click)="showAccordionElement(i)">
+          @if (getModuleForSemester(+fachsemester).length > 0) {
+            <section [attr.aria-labelledby]="'fachsemester-' + i">
+              <button class="accordion" (click)="showAccordionElement(i)">
               <span [id]="'fachsemester-' + i" class="accordion-header">
                 Fachsemester {{ fachsemester }}
               </span>
-            </button>
-          </section>
+              </button>
+            </section>
 
-          <section id="modul-fachsemester-container" class="panel" [class.open]="openPanels[i]">
-            @for (m of getModuleForSemester(+fachsemester); track m.id; let j = $index) {
+            <section id="modul-fachsemester-container" class="panel" [class.open]="openPanels[i]">
+              @for (m of getModuleForSemester(+fachsemester); track m.id; let j = $index) {
 
-              <div class="modul-card shd" [attr.aria-labelledby]="'modul-' + j">
-                <div class="modul-card-header">
-                  <div class="modul-name-container">
-                    <a class="fw-bold"
-                       [routerLink]="['/module/modul-details', m.fachId]"
-                       [queryParams]="{
+                <div class="modul-card shd" [attr.aria-labelledby]="'modul-' + j">
+                  <div class="modul-card-header">
+                    <div class="modul-name-container">
+                      <a class="fw-bold"
+                         [routerLink]="['/module/modul-details', m.fachId]"
+                         [queryParams]="{
                          modulId: m.fachId,
                          name: m.name,
                          secondsLearned: m.secondsLearned,
@@ -59,64 +59,64 @@
                          semesterTyp: m.semester?.semesterTyp,
                          lerntage: m.lerntage?.allLerntage
                        }">
-                      <span [id]="'modul-' + j" class="modul-name">{{ m.name }}</span>
-                    </a>
+                        <span [id]="'modul-' + j" class="modul-name">{{ m.name }}</span>
+                      </a>
+                    </div>
+
+                    <div id="termine-icon-container">
+                      <a id="termine-icon-link"
+                         title="Termine anzeigen"
+                         [routerLink]="['/module/termine-details']"
+                         [queryParams]="{fachId: m.fachId}">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             height="24px" width="24px" viewBox="0 -960 960 960" fill="#FFFFFF">
+                          <path d="M580-240q-42 0-71-29t-29-71..."/>
+                        </svg>
+                      </a>
+                    </div>
                   </div>
 
-                  <div id="termine-icon-container">
-                    <a id="termine-icon-link"
-                       title="Termine anzeigen"
-                       [routerLink]="['/module/termine-details']"
-                       [queryParams]="{fachId: m.fachId}">
-                      <svg xmlns="http://www.w3.org/2000/svg"
-                           height="24px" width="24px" viewBox="0 -960 960 960" fill="#FFFFFF">
-                        <path d="M580-240q-42 0-71-29t-29-71..."/>
-                      </svg>
-                    </a>
+                  <div class="modul-card-body">
+                    <div class="modul-card-content">
+                      <p>Gesamt: <span [id]="m.fachId">{{ m.secondsLearned | timeFormat }}</span></p>
+                    </div>
+
+                    <div class="modul-card-footer">
+                      <button
+                        [id]="'btn-' + m.fachId"
+                        class="play-button btn play"
+                        (click)="toggleTimer(m.fachId, i, j)"
+                        [disabled]="disabledBtn[i][j]"
+                      >
+
+                        @if (!disabledBtn[i][j] && running) {
+                          <svg class="button-icon-{{j}}" xmlns="http://www.w3.org/2000/svg"
+                               height="24px" width="24px" viewBox="0 -960 960 960" fill="#FFFFFF">
+                            <path d="M320-200v-560l440 280-440 280Z"/>
+                          </svg>
+                        }
+
+                        @if (!running && !disabledBtn[i][j]) {
+                          <svg class="button-icon-{{j}}" xmlns="http://www.w3.org/2000/svg"
+                               height="24px" width="24px" viewBox="0 -960 960 960" fill="#FFFFFF">
+                            <path d="M520-200v-560h240v560H520Z..."/>
+                          </svg>
+                        }
+
+                        @if (disabledBtn[i][j] && !running) {
+                          <svg class="button-icon-{{j}}" xmlns="http://www.w3.org/2000/svg"
+                               height="24px" width="24px" viewBox="0 -960 960 960" fill="#FFFFFF">
+                            <path d="M320-200v-560l440 280-440 280Z"/>
+                          </svg>
+                        }
+
+                      </button>
+                    </div>
                   </div>
                 </div>
-
-                <div class="modul-card-body">
-                  <div class="modul-card-content">
-                    <p>Gesamt: <span [id]="m.fachId">{{ m.secondsLearned | timeFormat }}</span></p>
-                  </div>
-
-                  <div class="modul-card-footer">
-                    <button
-                      [id]="'btn-' + m.fachId"
-                      class="play-button btn play"
-                      (click)="toggleTimer(m.fachId, i, j)"
-                      [disabled]="disabledBtn[i][j]"
-                    >
-
-                      @if (!disabledBtn[i][j] && running) {
-                        <svg class="button-icon-{{j}}" xmlns="http://www.w3.org/2000/svg"
-                             height="24px" width="24px" viewBox="0 -960 960 960" fill="#FFFFFF">
-                          <path d="M320-200v-560l440 280-440 280Z"/>
-                        </svg>
-                      }
-
-                      @if (!running && !disabledBtn[i][j]) {
-                        <svg class="button-icon-{{j}}" xmlns="http://www.w3.org/2000/svg"
-                             height="24px" width="24px" viewBox="0 -960 960 960" fill="#FFFFFF">
-                          <path d="M520-200v-560h240v560H520Z..."/>
-                        </svg>
-                      }
-
-                      @if (disabledBtn[i][j] && !running) {
-                        <svg class="button-icon-{{j}}" xmlns="http://www.w3.org/2000/svg"
-                             height="24px" width="24px" viewBox="0 -960 960 960" fill="#FFFFFF">
-                          <path d="M320-200v-560l440 280-440 280Z"/>
-                        </svg>
-                      }
-
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-            }
-          </section>
+              }
+            </section>
+          }
         }
       </div>
     }
