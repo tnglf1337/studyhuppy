@@ -188,7 +188,7 @@ public class ModulApiController {
 
 	@AngularApi
 	@GetMapping("/get-all-module-by-fachsemester")
-	public ResponseEntity<Map<Integer, List<Modul>>> getActiveModule2(HttpServletRequest request) {
+	public ResponseEntity<Map<Integer, List<Modul>>> getAllModuleByFachsemester(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
 		Map<Integer, List<Modul>> resultMap = modulService.getFachsemesterModuleMap(username);
 		return ResponseEntity.ok(resultMap);
