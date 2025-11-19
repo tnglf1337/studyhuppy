@@ -73,6 +73,11 @@ export class ModuleApiService {
     return this.http.delete<void>(this.MODUL_BASE_API + '/delete?fachId=' + fachId, {headers})
   }
 
+  getAktivStatus(fachId: string) {
+    const headers = this.headerService.createAuthHeader()
+    return this.http.get<any>(this.MODUL_BASE_API + '/get-aktivitaet-status/' + fachId, {headers})
+  }
+
   putAktivStatus(fachId: string) : Observable<void> {
     this.log.debug(`Try changing active status for modul id='${fachId}'...`)
     const headers = this.headerService.createAuthHeader()
