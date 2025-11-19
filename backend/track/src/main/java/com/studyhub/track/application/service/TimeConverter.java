@@ -3,6 +3,7 @@ package com.studyhub.track.application.service;
 import lombok.NoArgsConstructor;
 import java.time.LocalTime;
 
+@Deprecated(forRemoval = true)
 @NoArgsConstructor
 public class TimeConverter {
 	public int timeToSeconds(String time) {
