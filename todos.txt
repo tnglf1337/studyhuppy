@@ -8,8 +8,8 @@ TO-DO
 - Im Karteikarten-Service sind die Font-Styles broken
 - HTML-Seiten könnten semantischer mit <section> gestaltet werden.
 - HTML mit ARIA versehen
-- Wenn eine Lernsession beendet wird und man das Modal schließt, bleibt der Bildschirm verdunkelt und es ist nichts anklickbar.
 - BUG: bei einem refresh im browser wirft nginx 404
+- Feld Semester von Klasse Modul entfernen
 
 IN PROGRESS
 - Java-Dokumentation erstellen, fehlt an vielen Stellen

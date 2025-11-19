@@ -20,7 +20,7 @@ public class Modul {
 	private String username;
 	private boolean active;
 	private int semesterstufe;
-	private Semester semester;
+	private Semester semester; //TODO remove field from project
 	private List<Modultermin> modultermine;
 
 	public String getGesamtArbeitsaufwand() {
