@@ -1,5 +1,6 @@
 package com.studyhub.track.adapter.web;
 
+import com.studyhub.track.adapter.web.controller.request.dto.ModulRequest;
 import com.studyhub.track.application.JWTService;
 import com.studyhub.track.domain.model.modul.Kreditpunkte;
 import com.studyhub.track.domain.model.modul.Modul;
@@ -14,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
+@Deprecated
 @Data
 @AllArgsConstructor
 public class SemesterForm {
