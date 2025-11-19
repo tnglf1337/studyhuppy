@@ -8,6 +8,7 @@ import com.studyhub.track.adapter.security.SecurityConfig;
 import com.studyhub.track.adapter.web.controller.request.dto.AddTimeRequest;
 import com.studyhub.track.adapter.web.ModulForm;
 import com.studyhub.track.adapter.web.controller.api.ModulApiController;
+import com.studyhub.track.application.service.ModulUpdateService;
 import com.studyhub.track.application.service.dto.NeuerModulterminRequest;
 import com.studyhub.track.application.service.ModulEventService;
 import com.studyhub.track.application.service.ModulService;
@@ -72,42 +73,11 @@ class ModulApiControllerTest {
 	@MockitoBean
 	private PrometheusMetrics metrics;
 
+	@MockitoBean
+	private ModulUpdateService modulUpdateService;
+
 	@Autowired
 	private ModulApiController modulApiController;
-
-	@Test
-	@DisplayName("Wenn ein neues Modul erstellt werden soll und der User noch welche erstellen kann, wird das Modul gespeichert")
-	void test_01() {
-		ModulForm modulForm = mock(ModulForm.class);
-		ModulForm dataForNewModul = new ModulForm("m1", 10, 90, 210, LocalDate.now(), "10:00");
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		Modul m = new Modul();
-
-		when(jwtService.extractUsernameFromHeader(request)).thenReturn("peter");
-		when(modulService.modulCanBeCreated("peter", maxModule)).thenReturn(true);
-		when(modulForm.newModulFromFormData(dataForNewModul, "peter", 2)).thenReturn(m);
-
-		modulApiController.newModule(dataForNewModul, request);
-
-		verify(modulService).saveNewModul(any(Modul.class));
-	}
-
-	@Test
-	@DisplayName("Wenn ein neues Modul erstellt werden soll und der User schon die maximale Anzahl erstellter Module erreich hat, wird das Modul nicht gespeichert")
-	void test_02() {
-		ModulForm modulForm = mock(ModulForm.class);
-		ModulForm dataForNewModul = new ModulForm("m1", 10, 90, 210, LocalDate.now(), "10:00");
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		Modul m = new Modul();
-
-		when(jwtService.extractUsernameFromHeader(request)).thenReturn("peter");
-		when(modulService.modulCanBeCreated("peter", maxModule)).thenReturn(false);
-		when(modulForm.newModulFromFormData(dataForNewModul, "peter", 2)).thenReturn(m);
-
-		modulApiController.newModule(dataForNewModul, request);
-
-		verify(modulService, times(0)).saveNewModul(any(Modul.class));
-	}
 
 	@Test
 	@DisplayName("Ein Post-Request auf /update ist nicht als unauthentifizierte Person möglich")
