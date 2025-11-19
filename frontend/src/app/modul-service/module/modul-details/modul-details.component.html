@@ -30,9 +30,9 @@
           </th>
           <td class="col-wd-300 td-border-l m-accent-font">
             <div>
-              <mat-slide-toggle (change)="putAktivStatus(modulId)" [checked]="getActiveStatus(modulId)">
-                <span class="ff-outfit" *ngIf="getActiveStatus(modulId)"></span>
-                <span class="ff-outfit" *ngIf="!getActiveStatus(modulId)"></span>
+              <mat-slide-toggle (change)="putAktivStatus(modulId)" [checked]="active">
+                <span class="ff-outfit" *ngIf="active"></span>
+                <span class="ff-outfit" *ngIf="!active"></span>
               </mat-slide-toggle>
             </div>
           </td>

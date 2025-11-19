@@ -33,6 +33,7 @@ export class ModulDetailsComponent implements  OnInit{
   semesterTyp!: string
   semesterJahr: string = '2000'
   lerntage!: string[]
+  active!: boolean
 
   addTimeForm = new FormGroup({
     modulId: new FormControl("", Validators.required),
@@ -41,6 +42,7 @@ export class ModulDetailsComponent implements  OnInit{
 
   ngOnInit(): void {
     this.initComponentWithQueryParamData()
+    this.getAktivitaetStatus()
   }
 
   initComponentWithQueryParamData() {
@@ -56,18 +58,8 @@ export class ModulDetailsComponent implements  OnInit{
       this.semesterJahr = this.getSemesterJahr(this.semesterTyp)
       this.lerntage = params['lerntage']
 
-      this.queryParamLog()
+      //this.queryParamLog()
     });
-  }
-
-  queryParamLog() {
-    this.log.debug("name: " + this.name)
-    this.log.debug("seconds: " + this.secondsLearned)
-    this.log.debug("kp: " + this.kreditpunkte)
-    this.log.debug("semesterstufe: " + this.semesterstufe)
-    this.log.debug("semesterTyp: " + this.semesterTyp)
-    this.log.debug("semesterJahr: " + this.semesterJahr)
-    this.log.debug("lernage:" + this.lerntage)
   }
 
   getSemesterJahr(semesterTyp: string | undefined): string {
@@ -101,14 +93,7 @@ export class ModulDetailsComponent implements  OnInit{
 
   putAktivStatus(fachId: string) {
     this.service.putAktivStatus(fachId).subscribe(() => {
-      this.service.getAllModulesByUsername().subscribe({
-        next: (data) => {
-          // this.module = data; ????
-        },
-        error: (err) => {
-          this.snackbarService.openError("Fehler beim Laden der Daten für Methode 'putAktivStatus'")
-        }
-      });
+      this.getAktivitaetStatus()
       this.snackbarService.openSuccess("Modulaktivität geändert")
     })
   }
@@ -132,8 +117,22 @@ export class ModulDetailsComponent implements  OnInit{
     }
   }
 
-  getActiveStatus(fachId: string) {
-    //TODO implement
-    return true
+  private getAktivitaetStatus() {
+    this.service.getAktivStatus(this.modulId).subscribe({
+      next: data => {
+        this.active = data
+        console.log("modul ist aktiv: " + this.active)
+      }
+    })
+  }
+
+  private queryParamLog() {
+    this.log.debug("name: " + this.name)
+    this.log.debug("seconds: " + this.secondsLearned)
+    this.log.debug("kp: " + this.kreditpunkte)
+    this.log.debug("semesterstufe: " + this.semesterstufe)
+    this.log.debug("semesterTyp: " + this.semesterTyp)
+    this.log.debug("semesterJahr: " + this.semesterJahr)
+    this.log.debug("lernage:" + this.lerntage)
   }
 }
