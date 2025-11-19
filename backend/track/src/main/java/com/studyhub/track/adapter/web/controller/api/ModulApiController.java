@@ -70,9 +70,13 @@ public class ModulApiController {
 		String username = jwtService.extractUsernameFromHeader(httpServletRequest);
 		UUID modulId = request.modulId();
 		int secondsLearned = request.localTimeToSeconds();
-		modulUpdateService.updateSeconds(modulId, secondsLearned);
-		modulEventService.saveEvent(secondsLearned, modulId, username);
-		return ResponseEntity.ok().build();
+		if(secondsLearned > 5) {
+			modulUpdateService.updateSeconds(modulId, secondsLearned);
+			modulEventService.saveEvent(secondsLearned, modulId, username);
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
 	}
 
 	@AngularApi
