@@ -123,7 +123,7 @@ public class ModulApiController {
 	public ResponseEntity<Void> newModule(@RequestBody ModulForm modulForm, HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
 		int semester = authenticationService.getSemesterOfUser(username, jwtService.extractTokenFromHeader(request.getHeader("Authorization")));
-		Modul modul = modulForm.newModulFromFormData(modulForm, username, semester);
+		Modul modul = modulForm.newModulFromFormData(username, semester);
 		modulService.saveNewModul(modul);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 
