@@ -13,8 +13,4 @@ public record ModulGelerntEvent(
 	public static ModulGelerntEvent initEvent(UUID modulId, int secondsLearned, String username) {
 		return new ModulGelerntEvent(UUID.randomUUID(), modulId, username, secondsLearned, LocalDate.now());
 	}
-
-	public boolean enoughSecondsLearned() {
-		return secondsLearned >= 5;
-	}
 }

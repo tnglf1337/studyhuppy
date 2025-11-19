@@ -29,12 +29,8 @@ public class ModulEventService {
 	 */
 	public void saveEvent(int secondsLearned, UUID modulId, String username) {
 		ModulGelerntEvent event = ModulGelerntEvent.initEvent(modulId, secondsLearned, username);
-		if (event.enoughSecondsLearned()) {
-			modulGelerntEvent.save(event);
-			logger.info("Saved ModulGelerntEvent: {}", event);
-		} else {
-			throw new IllegalStateException("modul was not saved, because not enough seconds learned");
-		}
+		modulGelerntEvent.save(event);
+		logger.info("Saved ModulGelerntEvent: {}", event);
 	}
 
 	/**
