@@ -19,6 +19,7 @@ a {
 }
 
 ul {
+  width: 800px;
   list-style-type: none;
   display: flex;
   flex-direction: row;
@@ -26,7 +27,7 @@ ul {
 
 li {
   border: 1px solid #b4b4b4;
-  width: 350px;
+  width: 100%;
   padding: 2px;
   height: 40px;
   transition: background-color 0.2s ease;
@@ -46,4 +47,23 @@ li:hover  {
   background-color: #8cc4fa;
   border-color: #49a5ff;
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #left-li {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0;
+  }
+
+  #right-li {
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
 }

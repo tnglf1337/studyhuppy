@@ -11,7 +11,7 @@ import {LoadingDataComponent} from '../../app-layout/loading-data/loading-data.c
 @Component({
   selector: 'app-module',
   templateUrl: './module.component.html',
-  styleUrls: ['./module.component.scss', '../../loading.scss', '../../accordion.scss'],
+  styleUrls: ['./module.component.scss', '../../loading.scss', '../../accordion.scss', '../../debug.scss'],
   standalone: true,
   imports: [CommonModule, TimeFormatPipe, RouterLink, LoadingDataComponent]
 })

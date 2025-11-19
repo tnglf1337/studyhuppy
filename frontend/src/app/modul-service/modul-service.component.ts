@@ -9,7 +9,7 @@ import {RouterLink, RouterOutlet} from '@angular/router';
   ],
   templateUrl: './modul-service.component.html',
   standalone: true,
-  styleUrls: ['./modul-service.component.scss', '../color.scss', '../links.scss']
+  styleUrls: ['./modul-service.component.scss', '../color.scss', '../links.scss', '../debug.scss']
 })
 export class ModulServiceComponent {
 
