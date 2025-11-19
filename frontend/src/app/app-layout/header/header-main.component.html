@@ -1,11 +1,11 @@
 <div id="header-container" class="border-r">
-  <header>
-    <nav aria-label="Hauptnavigation" id="header-navigation">
-      <div id="logo-container">
+  <header class="border-g">
+    <nav aria-label="Hauptnavigation" id="header-navigation" class="border-g">
+      <div id="logo-container" class="border-o">
         <app-logo aria-hidden="true"></app-logo>
         <p id="website-logo">Studyhuppy</p>
       </div>
-      <div id="avatar-container" *ngIf="loginStatusService.isLoggedIn()">
+      <div id="avatar-container" *ngIf="loginStatusService.isLoggedIn()" class="border-o">
         <app-avatar></app-avatar>
       </div>
     </nav>

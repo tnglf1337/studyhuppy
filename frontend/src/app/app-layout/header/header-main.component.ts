@@ -9,7 +9,7 @@ import {LogoComponent} from '../logo/logo.component';
   imports: [NgIf, AvatarComponent, LogoComponent],
   templateUrl: './header-main.component.html',
   standalone: true,
-  styleUrls: ['./header-main.component.scss', '../../general.scss', '../../color.scss', '../../links.scss', '../../button.scss']
+  styleUrls: ['./header-main.component.scss', '../../general.scss', '../../color.scss', '../../links.scss', '../../button.scss', '../../debug.scss']
 })
 export class HeaderMainComponent {
   loginStatusService = inject(LoginStatusService)

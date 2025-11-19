@@ -22,6 +22,7 @@ header {
 }
 
 #logo-container {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -34,7 +35,16 @@ header {
   padding-right: 50px;
 }
 
+#website-logo {
+  font-size: 3.5rem;
+}
+
 p {
   margin: 0;
 }
 
+@media (max-width: 600px) {
+  #avatar-container {
+    display: none;
+  }
+}
