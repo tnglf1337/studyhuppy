@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+@Deprecated
 @Component
 public class RedirectEntryPoint implements AuthenticationEntryPoint {
 
