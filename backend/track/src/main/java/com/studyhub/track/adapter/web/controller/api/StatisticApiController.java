@@ -1,7 +1,6 @@
 package com.studyhub.track.adapter.web.controller.api;
 
 import com.studyhub.track.application.JWTService;
-import com.studyhub.track.adapter.web.AngularApi;
 import com.studyhub.track.application.service.ModulEventService;
 import com.studyhub.track.application.service.ModulService;
 import com.studyhub.track.application.service.ModulStat;
@@ -27,14 +26,12 @@ public class StatisticApiController {
 		this.jwtService = jwtService;
 	}
 
-	@AngularApi
 	@GetMapping("/chart")
 	public ResponseEntity<Map<LocalDate, List<ModulStat>>> getStats(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
 		return ResponseEntity.ok(modulEventService.getStatisticsForRecentDays(7, username));
 	}
 
-	@AngularApi
 	@GetMapping("/get-general-statistics")
 	public ResponseEntity<GeneralStatisticsDto> getGeneralStatistics(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -42,21 +39,18 @@ public class StatisticApiController {
 		return ResponseEntity.ok(dto);
 	}
 
-	@AngularApi
 	@GetMapping("/get-total-study-time")
 	public ResponseEntity<Integer> getTotalStudyTime(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
 		return ResponseEntity.ok(modulService.getTotalStudyTimeForUser(username));
 	}
 
-	@AngularApi
 	@GetMapping("/get-average-study-time-per-day")
 	public ResponseEntity<Integer> getAverageStudyTimePerDay(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
 		return ResponseEntity.ok(modulEventService.computeAverageStudyTimePerDay(username));
 	}
 
-	@AngularApi
 	@GetMapping("/get-total-study-time-per-semester")
 	public ResponseEntity<Map<Integer, Integer>> getTotalStudyTimePerSemester(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -64,14 +58,13 @@ public class StatisticApiController {
 		return ResponseEntity.ok(res);
 	}
 
-	@AngularApi
 	@GetMapping("/get-number-active-module")
 	public ResponseEntity<String> getNumberActiveModule(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
 		String n = String.valueOf(modulService.countActiveModules(username));
 		return ResponseEntity.ok(n);
 	}
-	@AngularApi
+
 	@GetMapping("/get-number-not-active-module")
 	public ResponseEntity<String> getNumberNotActiveModule(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -79,7 +72,6 @@ public class StatisticApiController {
 		return ResponseEntity.ok(n);
 	}
 
-	@AngularApi
 	@GetMapping("/get-max-studied-modul")
 	public ResponseEntity<String> getMaxStudiedModul(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -87,7 +79,6 @@ public class StatisticApiController {
 		return ResponseEntity.ok(maxModul);
 	}
 
-	@AngularApi
 	@GetMapping("/get-min-studied-modul")
 	public ResponseEntity<String> getMinStudiedModul(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);

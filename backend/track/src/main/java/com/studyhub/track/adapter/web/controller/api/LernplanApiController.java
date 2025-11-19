@@ -1,6 +1,5 @@
 package com.studyhub.track.adapter.web.controller.api;
 
-import com.studyhub.track.adapter.web.AngularApi;
 import com.studyhub.track.adapter.web.controller.request.dto.LernplanBearbeitetRequest;
 import com.studyhub.track.adapter.web.controller.request.dto.LernplanRequest;
 import com.studyhub.track.application.service.dto.LernplanWochenuebersicht;
@@ -83,7 +82,6 @@ public class LernplanApiController {
 		return ResponseEntity.ok().build();
 	}
 
-	@AngularApi
 	@GetMapping("/has-lernplan")
 	public ResponseEntity<Boolean> hasLernplan(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -91,7 +89,6 @@ public class LernplanApiController {
 		return ResponseEntity.ok(!data.isEmpty());
 	}
 
-	@AngularApi
 	@GetMapping("/is-today-planned")
 	public ResponseEntity<Boolean> isTodayPlanned(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -105,7 +102,6 @@ public class LernplanApiController {
 		}
 	}
 
-	@AngularApi
 	@PostMapping("/bearbeite-lernplan")
 	public ResponseEntity<Void> bearbeiteLernplan(@RequestBody LernplanBearbeitetRequest lernplanRequest, HttpServletRequest httpRequest) {
 		Lernplan lernplan = lernplanRequest.toEntity(jwtService.extractUsernameFromHeader(httpRequest));

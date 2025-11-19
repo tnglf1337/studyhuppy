@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@Deprecated
 @Controller
 @RequestMapping("/api/modul/v1")
 public class SemesterApiController {

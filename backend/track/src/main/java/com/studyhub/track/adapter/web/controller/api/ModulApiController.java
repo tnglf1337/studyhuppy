@@ -44,7 +44,6 @@ public class ModulApiController {
         this.metrics = metrics;
     }
 
-	@AngularApi
 	@PostMapping("/update")
 	public ResponseEntity<Void> updateSeconds(@RequestBody TimerRequest timerRequest, HttpServletRequest httpServletRequest) {
 		try {
@@ -60,7 +59,6 @@ public class ModulApiController {
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
-	@AngularApi
 	@PostMapping("/add-seconds")
 	public ResponseEntity<Void> addSeconds(@RequestBody AddSecondsRequest request, HttpServletRequest httpServletRequest) {
 		String username = jwtService.extractUsernameFromHeader(httpServletRequest);
@@ -75,27 +73,23 @@ public class ModulApiController {
 		}
 	}
 
-	@AngularApi
 	@GetMapping("/get-seconds")
 	public ResponseEntity<Integer> getSeconds(@RequestParam("fachId") String fachId) {
 		return ResponseEntity.ok(modulService.getSecondsForId(UUID.fromString(fachId)));
 	}
 
-	@AngularApi
 	@GetMapping("/module-map")
 	public ResponseEntity<Map<UUID, String>> getModuleMap(HttpServletRequest req) {
 		String username = jwtService.extractUsernameFromHeader(req);
 		return ResponseEntity.ok(modulService.getModuleMap(username));
 	}
 
-	@AngularApi
 	@GetMapping("/module-name")
 	public ResponseEntity<String> getModulName(String modulFachId) {
 		String modulName = modulService.findModulNameByFachId(UUID.fromString(modulFachId));
 		return ResponseEntity.ok(modulName);
 	}
 
-	@AngularApi
 	@PutMapping("/reset")
 	public ResponseEntity<Void> reset(@RequestParam("fachId") String fachId) {
 		try {
@@ -106,7 +100,6 @@ public class ModulApiController {
         return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
-	@AngularApi
 	@DeleteMapping("/delete")
 	public ResponseEntity<Void> deleteModul(@RequestParam UUID fachId, HttpServletRequest httpServletRequest) {
 		String username = jwtService.extractUsernameFromHeader(httpServletRequest);
@@ -119,7 +112,6 @@ public class ModulApiController {
 		}
 	}
 
-	@AngularApi
 	@GetMapping("/get-active-modules")
 	public ResponseEntity<List<Modul>> getActiveModules(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -127,7 +119,6 @@ public class ModulApiController {
 		return ResponseEntity.ok(l);
 	}
 
-	@AngularApi
 	@PostMapping("/new-modul")
 	public ResponseEntity<Void> newModule(@RequestBody ModulForm modulForm, HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -138,7 +129,6 @@ public class ModulApiController {
 
 	}
 
-	@AngularApi
 	@GetMapping("/get-all-by-username")
 	public ResponseEntity<List<ModulDto>> getAllByUsername(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -146,34 +136,29 @@ public class ModulApiController {
 		return ResponseEntity.ok(l);
 	}
 
-	@AngularApi
 	@PutMapping("/change-active")
 	public ResponseEntity<Void> activate(@RequestParam("fachId")  String fachId) {
 		modulService.toggleModulActivity(UUID.fromString(fachId));
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
-	@AngularApi
 	@GetMapping("/get-aktivitaet-status/{fachId}")
 	public ResponseEntity<Boolean> getAktivitaetStatus(@PathVariable("fachId") String fachId) {
 		boolean isActive = modulService.findByFachId(UUID.fromString(fachId)).isActive();
 		return ResponseEntity.ok(isActive);
 	}
 
-	@AngularApi
 	@GetMapping("/getModultermine")
 	public ResponseEntity<List<Modultermin>> getModultermine(@RequestParam("modulId") UUID modulId) {
 		return ResponseEntity.ok(modulService.getModultermineByModulId(modulId));
 	}
 
-	@AngularApi
 	@PostMapping("/addModultermin")
 	public ResponseEntity<Void> addModultermin(@RequestBody NeuerModulterminRequest req) {
 		modulService.saveNewModultermin(req);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-	@AngularApi
 	@GetMapping("/get-all-module-by-fachsemester")
 	public ResponseEntity<Map<Integer, List<Modul>>> getAllModuleByFachsemester(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -181,7 +166,6 @@ public class ModulApiController {
 		return ResponseEntity.ok(resultMap);
 	}
 
-	@AngularApi
 	@GetMapping("/get-modul-select-data")
 	public ResponseEntity<List<ModulSelectDto>> getModulSelectData(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -189,7 +173,6 @@ public class ModulApiController {
 		return ResponseEntity.ok(data);
 	}
 
-	@AngularApi
 	@GetMapping("/has-module")
 	public ResponseEntity<Boolean> hasModule(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);

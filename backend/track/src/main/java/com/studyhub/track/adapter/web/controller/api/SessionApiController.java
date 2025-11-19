@@ -1,6 +1,5 @@
 package com.studyhub.track.adapter.web.controller.api;
 
-import com.studyhub.track.adapter.web.AngularApi;
 import com.studyhub.track.adapter.web.controller.request.dto.SessionBeendetEventRequest;
 import com.studyhub.track.adapter.web.controller.request.dto.SessionBewertungStatistikRequest;
 import com.studyhub.track.adapter.web.controller.request.dto.SessionDeleteRequest;
@@ -90,7 +89,6 @@ public class SessionApiController {
 		return ResponseEntity.ok().build();
 	}
 
-	@AngularApi
 	@GetMapping("/has-lernsessions")
 	public ResponseEntity<Boolean> hasLernSessions(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -98,7 +96,6 @@ public class SessionApiController {
 		return ResponseEntity.ok(!data.isEmpty());
 	}
 
-	@AngularApi
 	@PostMapping("/save-session-beendet-event" )
 	public ResponseEntity<Void> saveSessionBeendetEvent(@RequestBody SessionBeendetEventRequest eventRequest, HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -110,14 +107,12 @@ public class SessionApiController {
 		}
 	}
 
-	@AngularApi
 	@PostMapping("/edited-session")
 	public ResponseEntity<Void> editedSessison(@RequestBody SessionRequest sessionRequest, HttpServletRequest request) {
 		sessionService.saveEditedSession(sessionRequest);
 		return ResponseEntity.ok().build();
 	}
 
-	@AngularApi
 	@GetMapping("/get-general-session-bewertung-statistik")
 	public ResponseEntity<SessionBewertungGeneralStatistikDto> getGeneralSessionBewertungStatistik(HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
@@ -125,7 +120,6 @@ public class SessionApiController {
 		return ResponseEntity.ok(generalStatistikDto);
 	}
 
-	@AngularApi
 	@GetMapping("/get-session-bewertung-statistik")
 	public ResponseEntity<Map<LocalDate, SessionBewertungAveragesDto>> getSessionBewertungStatistik(
 			SessionBewertungStatistikRequest sessionBewertungRequest)
