@@ -1,7 +1,7 @@
 package com.studyhub.track.adapter.web.controller.api;
 
 import com.studyhub.track.adapter.web.controller.request.dto.LernplanBearbeitetRequest;
-import com.studyhub.track.adapter.web.controller.request.dto.LernplanRequest;
+import com.studyhub.track.adapter.web.controller.request.dto.LernplanCreateRequest;
 import com.studyhub.track.application.service.dto.LernplanWochenuebersicht;
 import com.studyhub.track.application.JWTService;
 import com.studyhub.track.application.service.LernplanService;
@@ -46,8 +46,8 @@ public class LernplanApiController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<Void> createLernplan(@RequestBody LernplanRequest lernplanRequest, HttpServletRequest httpRequest) {
-		Lernplan lernplan = lernplanRequest.toEntity(jwtService.extractUsernameFromHeader(httpRequest));
+	public ResponseEntity<Void> createLernplan(@RequestBody LernplanCreateRequest lernplanCreateRequest, HttpServletRequest httpRequest) {
+		Lernplan lernplan = lernplanCreateRequest.toEntity(jwtService.extractUsernameFromHeader(httpRequest));
 		boolean success = lernplanService.saveLernplan(lernplan);
 
 		if (success) {

@@ -9,10 +9,22 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
-public record LernplanRequest(
+/**
+ * Request dto with data to create a new Lernplan entity.
+ * @param lernplanTitel The title of the Lernplan
+ * @param tage The list of TagDto representing the days and sessions of the Lernplan
+ */
+public record LernplanCreateRequest(
 		String lernplanTitel,
 		List<TagDto> tage
 ) {
+
+	// TODO duplicated code
+	/**
+	 * Converts the LernplanCreateRequest to a Lernplan entity.
+	 * @param username The username of the user creating the Lernplan
+	 * @return The created Lernplan entity
+	 */
 	public Lernplan toEntity(String username) {
 		List<Tag> tagesListe = tage.stream()
 				.filter(e -> !e.sessionId().equals("none"))
