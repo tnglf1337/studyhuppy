@@ -225,7 +225,7 @@ class ModulServiceTest {
 		UUID desiredSecondsOfModul = UUID.randomUUID();
 		when(modulRepository.findSecondsById(desiredSecondsOfModul)).thenReturn(2000);
 
-		int actualSeconds = modulService.getSecondsForId(desiredSecondsOfModul);
+		int actualSeconds = modulService.findSecondsById(desiredSecondsOfModul);
 
 		assertThat(actualSeconds).isEqualTo(2000);
 	}
@@ -236,7 +236,7 @@ class ModulServiceTest {
 		UUID notExistingModulId = UUID.randomUUID();
 		when(modulRepository.findSecondsById(notExistingModulId)).thenReturn(0);
 
-		int actualSeconds = modulService.getSecondsForId(notExistingModulId);
+		int actualSeconds = modulService.findSecondsById(notExistingModulId);
 
 		assertThat(actualSeconds).isEqualTo(0);
 	}

@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.IntStream;
@@ -103,7 +102,7 @@ public class ModulService {
 	 * @param fachId The id of the module.
 	 * @return The seconds learned of the desired module.
 	 */
-	public int getSecondsForId(UUID fachId) {
+	public int findSecondsById(UUID fachId) {
 		return modulRepository.findSecondsById(fachId);
 	}
 
