@@ -135,7 +135,7 @@ class ModulServiceTest {
 	@DisplayName("getFachsemesterModuleMap baut die Datenstruktur Map<Integer, List<Modul>> korrekt zusammen")
 	void test_17() {
 		List<Modul> modulList = ModulMother.modulListWithSemester();
-		when(modulRepository.findActiveModuleByUsername(true, "peter")).thenReturn(modulList);
+		when(modulRepository.findByUsername("peter")).thenReturn(modulList);
 		Map<Integer, List<Modul>> expectedMap = new TreeMap<>();
 		List<Modul> l1 = List.of(
 				new Modul(UUID.randomUUID(), "m1", 1000, DEFAULT_KREDITPUNKTE, "peter", true, 3, DEFAULT_SEMESTER, DEFAULT_MODULTERMINE) ,
