@@ -300,7 +300,7 @@ public class ModulService {
 	 * @return Map of fachsemester to list of modules.
 	 */
 	public Map<Integer, List<Modul>> getFachsemesterModuleMap(String username) {
-		List<Modul> module = modulRepository.findActiveModuleByUsername(true, username);
+		List<Modul> module = modulRepository.findByUsername(username);
 		Map<Integer, List<Modul>> moduleMap = new TreeMap<>(Comparator.reverseOrder());
 		Set<Integer> fachsemester = new HashSet<>();
 
