@@ -167,6 +167,13 @@ public class ModulApiController {
 	}
 
 	@AngularApi
+	@GetMapping("/get-aktivitaet-status/{fachId}")
+	public ResponseEntity<Boolean> getAktivitaetStatus(@PathVariable("fachId") String fachId) {
+		boolean isActive = modulService.findByFachId(UUID.fromString(fachId)).isActive();
+		return ResponseEntity.ok(isActive);
+	}
+
+	@AngularApi
 	@GetMapping("/getModultermine")
 	public ResponseEntity<List<Modultermin>> getModultermine(@RequestParam("modulId") UUID modulId) {
 		return ResponseEntity.ok(modulService.getModultermineByModulId(modulId));
