@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Consumer-Klasse für den Fall einer Benutzerlöschung, die im authentication-service produziert wird.
- * Alle Daten des Benutzers werden gelöscht.
+ * Consumer class for user deletion events produced by the authentication service.
+ * All user data will be deleted.
  * topic: 'user-deletion'
  */
 @Profile("dev-kafka")
@@ -52,6 +52,10 @@ public class UserDeletionConsumerImpl implements IUserDeletionConsumer {
 		deleteAllUserData(userDto);
 	}
 
+	/**
+	 * Deletes all user data associated with the given userDto.
+	 * @param userDto The <code>UserDto</code>> containing the username
+	 */
 	@Override
 	public void deleteAllUserData(UserDto userDto) {
 		String username = userDto.username();
