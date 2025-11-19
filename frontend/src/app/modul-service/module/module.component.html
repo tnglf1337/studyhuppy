@@ -8,79 +8,91 @@
       </div>
     } @else {
       <div class="modul-container">
-        @for (fachsemester of Object.keys(module).reverse(); track fachsemester) {
-          <section [attr.aria-labelledby]="'fachsemester-' + $index">
-            <button class="accordion" (click)="showAccordionElement($index)">
-            <span [id]="'fachsemester-' + $index" class="accordion-header">
-              Fachsemester {{ fachsemester }}
-            </span>
+        @for (fachsemester of Object.keys(module).reverse(); track fachsemester; let i = $index) {
+
+          <section [attr.aria-labelledby]="'fachsemester-' + i">
+            <button class="accordion" (click)="showAccordionElement(i)">
+              <span [id]="'fachsemester-' + i" class="accordion-header">
+                Fachsemester {{ fachsemester }}
+              </span>
             </button>
           </section>
-          <section id="modul-fachsemester-container" class="panel" [class.open]="openPanels[$index]">
-            @for (m of getModuleForSemester(+fachsemester); track m.id) {
-              <div class="modul-card shd" [attr.aria-labelledby]="'modul-' + $index">
+
+          <section id="modul-fachsemester-container" class="panel" [class.open]="openPanels[i]">
+            @for (m of getModuleForSemester(+fachsemester); track m.id; let j = $index) {
+
+              <div class="modul-card shd" [attr.aria-labelledby]="'modul-' + j">
                 <div class="modul-card-header">
                   <div class="modul-name-container">
-                    <a class="fw-bold" [routerLink]="['/module/modul-details', m.fachId]"
-                       [queryParams]="
-                             {
-                               modulId: m.fachId,
-                               name: m.name,
-                               secondsLearned: m.secondsLearned,
-                               kreditpunkte: m.kreditpunkte.anzahlPunkte,
-                               kontaktzeitStunden: m.kreditpunkte.kontaktzeitStunden,
-                               selbststudiumStunden: m.kreditpunkte.selbststudiumStunden,
-                               semesterstufe: m.semesterstufe,
-                               semesterTyp: m.semester?.semesterTyp,
-                               lerntage: m.lerntage?.allLerntage
-                             }">
-                      <span [id]="'modul-' + $index" class="modul-name">{{ m.name }}</span>
+                    <a class="fw-bold"
+                       [routerLink]="['/module/modul-details', m.fachId]"
+                       [queryParams]="{
+                         modulId: m.fachId,
+                         name: m.name,
+                         secondsLearned: m.secondsLearned,
+                         kreditpunkte: m.kreditpunkte.anzahlPunkte,
+                         kontaktzeitStunden: m.kreditpunkte.kontaktzeitStunden,
+                         selbststudiumStunden: m.kreditpunkte.selbststudiumStunden,
+                         semesterstufe: m.semesterstufe,
+                         semesterTyp: m.semester?.semesterTyp,
+                         lerntage: m.lerntage?.allLerntage
+                       }">
+                      <span [id]="'modul-' + j" class="modul-name">{{ m.name }}</span>
                     </a>
                   </div>
-                  <div id="termine-icon-container" class="">
-                    <a id="termine-icon-link" title="Termine anzeigen" [routerLink]="['/module/termine-details']"
+
+                  <div id="termine-icon-container">
+                    <a id="termine-icon-link"
+                       title="Termine anzeigen"
+                       [routerLink]="['/module/termine-details']"
                        [queryParams]="{fachId: m.fachId}">
-                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                           fill="#FFFFFF">
-                        <path
-                          d="M580-240q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z"/>
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           height="24px" width="24px" viewBox="0 -960 960 960" fill="#FFFFFF">
+                        <path d="M580-240q-42 0-71-29t-29-71..."/>
                       </svg>
                     </a>
                   </div>
                 </div>
+
                 <div class="modul-card-body">
                   <div class="modul-card-content">
                     <p>Gesamt: <span [id]="m.fachId">{{ m.secondsLearned | timeFormat }}</span></p>
                   </div>
+
                   <div class="modul-card-footer">
-                    <button [id]="'btn-' + m.fachId" class="play-button btn play" (click)="toggleTimer(m.fachId, $index, $index)"
-                            [disabled]="disabledBtn[$index][$index]">
-                      @if (!disabledBtn[$index][$index] && running) {
-                        <svg class="button-icon-{{$index}}"
-                             xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                             fill="#FFFFFF">
-                          <path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/>
+                    <button
+                      [id]="'btn-' + m.fachId"
+                      class="play-button btn play"
+                      (click)="toggleTimer(m.fachId, i, j)"
+                      [disabled]="disabledBtn[i][j]"
+                    >
+
+                      @if (!disabledBtn[i][j] && running) {
+                        <svg class="button-icon-{{j}}" xmlns="http://www.w3.org/2000/svg"
+                             height="24px" width="24px" viewBox="0 -960 960 960" fill="#FFFFFF">
+                          <path d="M320-200v-560l440 280-440 280Z"/>
                         </svg>
                       }
-                      @if (!running && !disabledBtn[$index][$index]) {
-                        <svg class="button-icon-{{$index}}"
-                             xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                             fill="#FFFFFF">
-                          <path
-                            d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"/>
+
+                      @if (!running && !disabledBtn[i][j]) {
+                        <svg class="button-icon-{{j}}" xmlns="http://www.w3.org/2000/svg"
+                             height="24px" width="24px" viewBox="0 -960 960 960" fill="#FFFFFF">
+                          <path d="M520-200v-560h240v560H520Z..."/>
                         </svg>
                       }
-                      @if (disabledBtn[$index][$index] && !running) {
-                        <svg class="button-icon-{{$index}}"
-                             xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                             fill="#FFFFFF">
-                          <path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/>
+
+                      @if (disabledBtn[i][j] && !running) {
+                        <svg class="button-icon-{{j}}" xmlns="http://www.w3.org/2000/svg"
+                             height="24px" width="24px" viewBox="0 -960 960 960" fill="#FFFFFF">
+                          <path d="M320-200v-560l440 280-440 280Z"/>
                         </svg>
                       }
+
                     </button>
                   </div>
                 </div>
               </div>
+
             }
           </section>
         }
@@ -88,5 +100,3 @@
     }
   </section>
 }
-
-

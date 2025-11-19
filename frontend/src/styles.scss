@@ -2,9 +2,16 @@
 :root {
   --primary-color: rgb(16, 45, 92);
   --accent-color: rgb(37, 78, 143);
+  --grey: rgb(248, 249, 250);
 }
 
-html, body { height: 100%; }
+html {
+  background-color: var(--grey)
+}
+
+html, body {
+  height: 100%;
+}
 
 body {
   margin: 0;
