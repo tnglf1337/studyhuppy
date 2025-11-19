@@ -39,7 +39,6 @@ server:
   port: ${DEV_SERVER_PORT}
 jwt:
   secret: ${JWT_SECRET}
-maxModule: 30
 kartei:
   api_url: http://localhost:9503/api/kartei/v1
 auth:

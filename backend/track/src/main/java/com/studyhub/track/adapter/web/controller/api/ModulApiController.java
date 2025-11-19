@@ -28,10 +28,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/modul/v1")
 public class ModulApiController {
-
-	@Value("${maxModule}")
-	private int maxModule;
-
 	private final ModulService modulService;
 	private final ModulUpdateService modulUpdateService;
 	private final ModulEventService modulEventService;
@@ -136,23 +132,10 @@ public class ModulApiController {
 	public ResponseEntity<Void> newModule(@RequestBody ModulForm modulForm, HttpServletRequest request) {
 		String username = jwtService.extractUsernameFromHeader(request);
 		int semester = authenticationService.getSemesterOfUser(username, jwtService.extractTokenFromHeader(request.getHeader("Authorization")));
-
 		Modul modul = modulForm.newModulFromFormData(modulForm, username, semester);
-		/**
-		 if (Optional.ofNullable(modulForm.stapelCheckbox()).orElse(false)) {
-		 CreateNewStapelRequest request = new CreateNewStapelRequest(modul.getFachId().toString(), modulForm.stapelName(), modulForm.beschreibung(), modulForm.lernstufen(), jwtService.extractUsername(token));
-		 request.validateForBindingResult(bindingResult);
-		 if(bindingResult.hasErrors()) return "add-module";
-		 stapelRequestService.sendCreateNewStapelRequest(request);
-		 }
-		 **/
+		modulService.saveNewModul(modul);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 
-		if (modulService.modulCanBeCreated(username, maxModule)) {
-			modulService.saveNewModul(modul);
-			return ResponseEntity.status(HttpStatus.CREATED).build();
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
 	}
 
 	@AngularApi
