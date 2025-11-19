@@ -3,11 +3,9 @@ package com.studyhub.track.application.service;
 import com.studyhub.track.domain.model.modul.Modul;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalTime;
 import java.util.UUID;
 
 @Service
@@ -20,6 +18,12 @@ public class ModulUpdateService {
 		this.modulRepository = modulRepository;
 	}
 
+	/**
+	 * Updates the seconds of a modul.
+	 * @param fachId The id of the modul
+	 * @param seconds The seconds to add to the modul
+	 * @throws ModulSecondsUpdateException if the update fails
+	 */
 	@Transactional
 	public void updateSeconds(UUID fachId, int seconds) throws ModulSecondsUpdateException {
 		Modul modul = modulRepository.findByUuid(fachId);
