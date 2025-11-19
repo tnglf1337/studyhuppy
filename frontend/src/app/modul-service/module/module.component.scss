@@ -36,6 +36,10 @@
   border-radius: var(--modul-card-border-radius);
 }
 
+.modul-card-disabled {
+  background-color: lightgray;
+}
+
 .modul-card-header {
   padding: 2.5px;
   min-height: 35px;
@@ -47,6 +51,10 @@
   border-style: none;
   border-top-left-radius: var(--modul-card-border-radius);
   border-top-right-radius: var(--modul-card-border-radius);
+}
+
+.modul-card-header-disabled {
+  background-color: #a9a9a9;
 }
 
 .modul-name-container {

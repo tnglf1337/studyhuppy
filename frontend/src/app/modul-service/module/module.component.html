@@ -43,8 +43,8 @@
             <section id="modul-fachsemester-container" class="panel" [class.open]="openPanels[i]">
               @for (m of getModuleForSemester(+fachsemester); track m.id; let j = $index) {
 
-                <div class="modul-card shd" [attr.aria-labelledby]="'modul-' + j">
-                  <div class="modul-card-header">
+                <div class="modul-card shd" [attr.aria-labelledby]="'modul-' + j" [ngClass]="{ 'modul-card-disabled': !m.active}">
+                  <div class="modul-card-header" [ngClass]="{ 'modul-card-header-disabled': !m.active}">
                     <div class="modul-name-container">
                       <a class="fw-bold"
                          [routerLink]="['/module/modul-details', m.fachId]"
