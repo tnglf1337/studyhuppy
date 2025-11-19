@@ -28,9 +28,9 @@ export class ModuleApiService {
     });
   }
 
-  getModuleByFachsemester(): Observable<{ [key: number]: Modul[] }> {
+  getAllModuleByFachsemester(): Observable<{ [key: number]: Modul[] }> {
     const headers = this.headerService.createAuthHeader()
-    return this.http.get<{ [key: number]: Modul[] }>(this.MODUL_BASE_API + '/get-active-module2', {headers});
+    return this.http.get<{ [key: number]: Modul[] }>(this.MODUL_BASE_API + '/get-all-module-by-fachsemester', {headers});
   }
 
   getAllModulesByUsername(): Observable<Modul[]> {
