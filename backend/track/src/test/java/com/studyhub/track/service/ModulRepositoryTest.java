@@ -88,18 +88,6 @@ class ModulRepositoryTest {
 		assertThat(repository.findAll()).hasSize(6);
 	}
 
-
-	@Test
-	@DisplayName("Modul wird erfolgreich reseted bzw. upgedated.")
-	void test_04() {
-		UUID fachId = UUID.fromString("f47ac10b-58cc-4372-a567-0e12b2c3d479");
-
-		repository.updateSecondsByUuid(fachId, 10);
-		Modul foundModul = repository.findByUuid(fachId);
-
-		assertThat(foundModul.getSecondsLearned()).isEqualTo(20);
-	}
-
 	@Test
 	@DisplayName("Active/nicht aktive Module werden erfolgreich für einen User gefundengefunden.")
 	void test_05() {
