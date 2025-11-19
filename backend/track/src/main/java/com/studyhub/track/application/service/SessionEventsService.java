@@ -12,6 +12,11 @@ public class SessionEventsService {
 		this.sessionBeendetEventRepository = sessionBeendetEventRepository;
 	}
 
+	/**
+	 * Saves a SessionBeendetEvent to the repository.
+	 * @param event The SessionBeendetEvent to be saved
+	 * @return true if the event was saved successfully, false otherwise
+	 */
 	public boolean save(SessionBeendetEvent event) {
 		return sessionBeendetEventRepository.save(event) != null;
 	}

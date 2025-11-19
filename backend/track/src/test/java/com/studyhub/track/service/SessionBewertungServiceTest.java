@@ -110,7 +110,7 @@ class SessionBewertungServiceTest {
 		List<SessionBeendetEvent> events = initEventsOfUserHisto(USER);
 		when(sessionBeendetEventRepository.findAllByUsername(USER)).thenReturn(events);
 
-		Map<Integer, Integer> actual = sessionBewertungService.getProduktivitaetHist(USER);
+		Map<Integer, Integer> actual = sessionBewertungService.getProduktivitaetHisto(USER);
 		assertThat(actual.get(2)).isZero();
 		assertThat(actual.get(4)).isZero();
 		assertThat(actual.get(5)).isZero();
