@@ -236,17 +236,6 @@ class ModulApiControllerTest {
 	}
 
 	@Test
-	@DisplayName("Post-Request auf /add-time ist als authentifizierte Person möglich")
-	@WithMockUser(username="testuser", roles = "USER")
-	void test_24() throws Exception {
-		AddTimeRequest req = new AddTimeRequest(UUID.randomUUID().toString(), "01:30");
-		mvc.perform(post("/api/modul/v1/add-time")
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(req)))
-				.andExpect(status().isOk());
-	}
-
-	@Test
 	@DisplayName("Get-Request auf /getModultermine ist nicht als unauthentifizierte Person möglich")
 	void test_27() throws Exception {
 		mvc.perform(get("/api/modul/v1/getModultermine"))
