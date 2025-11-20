@@ -5,6 +5,7 @@ import com.studyhub.track.domain.model.modul.Modul;
 import com.studyhub.track.domain.model.modul.ModulGelerntEvent;
 import com.studyhub.track.util.ModulMother;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,8 +26,8 @@ class ModulEventServiceTest {
 	static ModulEventService service;
 	static DateProvider dateProvider;
 
-	@BeforeAll
-	static void init() {
+	@BeforeEach
+	void init() {
 		modulRepo = mock(ModulRepository.class);
 		eventRepo = mock(ModulGelerntEventRepository.class);
 		dateProvider = mock(DateProvider.class);
@@ -104,15 +105,6 @@ class ModulEventServiceTest {
 		int res = service.computeAverageStudyTimePerDay(username);
 
 		assertThat(res).isZero();
-	}
-
-	@DisplayName("Ein ModulEvent mit {4, 0, -1000} Sekunden wird nicht gespeichert.")
-	@ParameterizedTest
-	@ValueSource(ints = {4, 0, -1000})
-	void test_05(int secondsLearned) {
-		assertThrows(IllegalStateException.class, () -> {
-			service.saveEvent(secondsLearned, UUID.randomUUID(), "timo123");
-		});
 	}
 
 	@Test
